@@ -12,6 +12,13 @@ $text = $jsonObj->{"events"}[0]->{"message"}->{"text"};
 //ReplyToken取得
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
+//画像の場合確認メッセージを送信
+if($type == "image"){
+  $response_format_text = [
+    "type" => "text",
+    "text" => "画像を受け取りました\nhttps://api.line.me/v2/bot/message/{messageId}/content"
+  ];
+}
 //メッセージ以外のときは何も返さず終了
 if($type != "text"){
 	exit;
@@ -139,8 +146,7 @@ if ($text == 'はい') {
     "altText" => "こんにちわ 何かご用ですか？（はい／いいえ）",
     "template" => [
         "type" => "confirm",
-        "text" => "こんにちは サニープライズです\n
-		何かご用ですか？",
+        "text" => "こんにちは サニープライズです\n何かご用ですか？",
         "actions" => [
             [
               "type" => "message",
