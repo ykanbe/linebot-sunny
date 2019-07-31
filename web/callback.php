@@ -16,7 +16,7 @@ $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 if($type == "image"){
   $response_format_text = [
     "type" => "text",
-    "text" => "画像を受け取りました\nhttps://api.line.me/v2/bot/message/{messageId}/content"
+    "text" => "画像を受け取りました\n https://api.line.me/v2/bot/message/{messageId}/content"
   ];
 }
 //メッセージ以外のときは何も返さず終了
