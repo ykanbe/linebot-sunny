@@ -16,7 +16,6 @@ $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 if($type != "text"){
 	exit;
 }
-
 //返信データ作成
 if ($text == 'はい') {
   $response_format_text = [
@@ -53,6 +52,9 @@ if ($text == 'はい') {
   ];
 } else if ($text == 'いいえ') {
   exit;
+} else if (strpos($text,'bc') !== false){
+    "type": "text",
+    "text": "Hello, world"
 } else if ($text == '違うやつお願い') {
   $response_format_text = [
     "type" => "template",
