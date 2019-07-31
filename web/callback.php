@@ -20,7 +20,7 @@ if($type == "image"){
   ];
 }
 //メッセージ以外のときは何も返さず終了
-if($type != "text"){
+else if($type != "text"){
 	exit;
 }
 //返信データ作成
