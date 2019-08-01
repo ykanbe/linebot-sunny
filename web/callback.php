@@ -13,44 +13,43 @@ $messageId = $jsonObj->{"events"}[0]->{"message"}->{"id"};
 //ReplyToken取得
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
-//画像ファイルのバイナリ取得
-$ch = curl_init("https://api.line.me/v2/bot/message/".$messageId."/content");
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(
- 'Content-Type: application/json; charser=UTF-8',
- 'Authorization: Bearer ' . $accessToken
- ));
-$result = curl_exec($ch);
-curl_close($ch);
-
-//画像ファイルの作成  
-$fp = fopen('./img/test2.jpg', 'wb');
-if ($fp){
-    if (flock($fp, LOCK_EX)){
-        if (fwrite($fp,  $result ) === FALSE){
-            print('ファイル書き込みに失敗しました<br>');
-        }else{
-            print($data.'をファイルに書き込みました<br>');
-        }
-
-        flock($fp, LOCK_UN);
-    }else{
-        print('ファイルロックに失敗しました<br>');
-    }
-}
-fclose($fp);
-
 //メッセージ以外のときは何も返さず終了
 if($type != "text" && $type != "image"){
 	exit;
 }
 //返信データ作成
-//画像の場合確認メッセージを送信
+//画像の場合、サーバーに保存
 if($type == "image"){
+  //画像ファイルのバイナリ取得
+  $ch = curl_init("https://api.line.me/v2/bot/message/".$messageId."/content");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+   'Content-Type: application/json; charser=UTF-8',
+   'Authorization: Bearer ' . $accessToken
+   ));
+  $result = curl_exec($ch);
+  curl_close($ch);
+  //画像ファイルの作成
+  $filename = date('Ymd-His').'.jpg';
+  $filemessage = '';
+  $fp = fopen('./img/'.$filename, 'wb');
+  if ($fp){
+      if (flock($fp, LOCK_EX)){
+          if (fwrite($fp,  $result ) === FALSE){
+              $filemessage = '画像の受け取りに失敗しました\n';
+          }else{
+              $filemessage = '画像を受け取りました\n';
+          }
+          flock($fp, LOCK_UN);
+      }else{
+          $filemessage = '画像の受け取りに失敗しました\n';
+      }
+  }
+  fclose($fp);
+  //確認メッセージを送信
   $response_format_text = [
     "type" => "text",
-    "text" => "画像を受け取りました\n https://api.line.me/v2/bot/message/".$messageId."/content"
-    //"text" => "画像を受け取りました\n".$messageId
+    "text" => $filemessage."https://".$_SERVER['SERVER_NAME'] . "img/".$filename
   ];
 } else if ($text == 'はい') {
   $response_format_text = [
