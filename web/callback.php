@@ -22,8 +22,8 @@ if($type != "text" && $type != "image"){
 if($type == "image"){
   $response_format_text = [
     "type" => "text",
-    //"text" => "画像を受け取りました\n https://api.line.me/v2/bot/message/".{messageId}."/content"
-    "text" => "画像を受け取りました\n".$imageid
+    "text" => "画像を受け取りました\n https://api.line.me/v2/bot/message/".$imageid."/content"
+    //"text" => "画像を受け取りました\n".$imageid
   ];
 } else if ($text == 'はい') {
   $response_format_text = [
@@ -147,7 +147,7 @@ if($type == "image"){
     "altText" => "こんにちわ 何かご用ですか？（はい／いいえ）",
     "template" => [
         "type" => "confirm",
-        "text" => "メッセージありがとうございます(0x10000A )\nこのアカウントは自動応答のみで対応しています(cellphone)\n何かご質問がございますか？",
+        "text" => "メッセージありがとうございます".0x10000A. "\nこのアカウントは自動応答のみで対応しています(cellphone)\n何かご質問がございますか？",
         "actions" => [
             [
               "type" => "message",
