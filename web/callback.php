@@ -20,7 +20,6 @@ if($type != "text" && $type != "image"){
 //返信データ作成
 //画像の場合確認メッセージを送信
 if($type == "image"){
-  $json_image = "https://api.line.me/v2/bot/message/".{messageId}."/content";
   $response_format_text = [
     "type" => "text",
     //"text" => "画像を受け取りました\n https://api.line.me/v2/bot/message/".{messageId}."/content"
