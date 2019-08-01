@@ -5,13 +5,13 @@ $accessToken = getenv('LINE_CHANNEL_ACCESS_TOKEN');
 //ユーザーからのメッセージ取得
 $json_string = file_get_contents('php://input');
 $jsonObj = json_decode($json_string);
-$json_image = {messageId};
 
 $type = $jsonObj->{"events"}[0]->{"message"}->{"type"};
 //メッセージ取得
 $text = $jsonObj->{"events"}[0]->{"message"}->{"text"};
 //ReplyToken取得
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
+$imageid = $jsonObj->{"events"}[0]->{"message"}->{"id"};
 
 //メッセージ以外のときは何も返さず終了
 if($type != "text" && $type != "image"){
@@ -23,7 +23,7 @@ if($type == "image"){
   $response_format_text = [
     "type" => "text",
     //"text" => "画像を受け取りました\n https://api.line.me/v2/bot/message/".{messageId}."/content"
-    "text" => "画像を受け取りました\n".$json_image
+    "text" => "画像を受け取りました\n".$imageid
   ];
 } else if ($text == 'はい') {
   $response_format_text = [
