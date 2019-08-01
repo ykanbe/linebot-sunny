@@ -36,20 +36,20 @@ if($type == "image"){
   if ($fp){
       if (flock($fp, LOCK_EX)){
           if (fwrite($fp,  $result ) === FALSE){
-              $filemessage = '画像の受け取りに失敗しました\n';
+              $filemessage = '画像の受け取りに失敗しました';
           }else{
-              $filemessage = '画像を受け取りました\n';
+              $filemessage = '画像を受け取りました！';
           }
           flock($fp, LOCK_UN);
       }else{
-          $filemessage = '画像の受け取りに失敗しました\n';
+          $filemessage = '画像の受け取りに失敗しました';
       }
   }
   fclose($fp);
   //確認メッセージを送信
   $response_format_text = [
     "type" => "text",
-    "text" => $filemessage."https://".$_SERVER['SERVER_NAME'] . "img/".$filename
+    "text" => $filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename
   ];
 } else if ($text == 'はい') {
   $response_format_text = [
