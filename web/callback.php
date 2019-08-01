@@ -1,7 +1,6 @@
 <?php
 $accessToken = getenv('LINE_CHANNEL_ACCESS_TOKEN');
 
-
 //ユーザーからのメッセージ取得
 $json_string = file_get_contents('php://input');
 $jsonObj = json_decode($json_string);
@@ -9,9 +8,37 @@ $jsonObj = json_decode($json_string);
 $type = $jsonObj->{"events"}[0]->{"message"}->{"type"};
 //メッセージ取得
 $text = $jsonObj->{"events"}[0]->{"message"}->{"text"};
+//メッセージID取得
+$messageId = $jsonObj->{"events"}[0]->{"message"}->{"id"};
 //ReplyToken取得
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
-$imageid = $jsonObj->{"events"}[0]->{"message"}->{"id"};
+
+//画像ファイルのバイナリ取得
+$ch = curl_init("https://api.line.me/v2/bot/message/".$messageId."/content");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+ 'Content-Type: application/json; charser=UTF-8',
+ 'Authorization: Bearer ' . $accessToken
+ ));
+$result = curl_exec($ch);
+curl_close($ch);
+
+//画像ファイルの作成  
+$fp = fopen('./img/test.jpg', 'wb');
+if ($fp){
+    if (flock($fp, LOCK_EX)){
+        if (fwrite($fp,  $result ) === FALSE){
+            print('ファイル書き込みに失敗しました<br>');
+        }else{
+            print($data.'をファイルに書き込みました<br>');
+        }
+
+        flock($fp, LOCK_UN);
+    }else{
+        print('ファイルロックに失敗しました<br>');
+    }
+}
+fclose($fp);
 
 //メッセージ以外のときは何も返さず終了
 if($type != "text" && $type != "image"){
@@ -22,8 +49,8 @@ if($type != "text" && $type != "image"){
 if($type == "image"){
   $response_format_text = [
     "type" => "text",
-    "text" => "画像を受け取りました\n https://api.line.me/v2/bot/message/".$imageid."/content"
-    //"text" => "画像を受け取りました\n".$imageid
+    "text" => "画像を受け取りました\n https://api.line.me/v2/bot/message/".$messageId."/content"
+    //"text" => "画像を受け取りました\n".$messageId
   ];
 } else if ($text == 'はい') {
   $response_format_text = [
