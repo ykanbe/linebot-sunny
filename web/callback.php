@@ -24,7 +24,7 @@ $result = curl_exec($ch);
 curl_close($ch);
 
 //画像ファイルの作成  
-$fp = fopen('./img/test.jpg', 'wb');
+$fp = fopen('./img/test2.jpg', 'wb');
 if ($fp){
     if (flock($fp, LOCK_EX)){
         if (fwrite($fp,  $result ) === FALSE){
