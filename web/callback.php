@@ -67,6 +67,8 @@ if($type == "image"){
   ];
   
 	//Sendgrid-2
+	$email->setSubject('[rakuten03]' . $messageId)
+		  ->setText('tags:' . $userId . '\n' . $userName);
 	$sendgrid->send($email);
 	
 } else if ($text == 'はい') {
