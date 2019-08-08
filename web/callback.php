@@ -16,10 +16,10 @@ $userId = $jsonObj->{"events"}[0]->{"source"}->{"userId"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 //massage0
 $massage0 = '';
-//massage1
-$massage1 = '<br>[word_balloon id="2" position="R" size="S" balloon="line" name_position="under_avatar" radius="true" avatar_border="false" avatar_shadow="false"balloon_shadow="true" avatar_hide="false" font_size="12" name="' . $userId . '"]';
-//massage2
-$massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_position="under_avatar" radius="true" avatar_border="false" avatar_shadow="false" balloon_shadow="true" avatar_hide="false" font_size="12"]';
+//massage1(BOT)
+$massage1 = '<br>[word_balloon id="2" position="R" size="S" balloon="line" name_position="under_avatar" radius="true" avatar_border="false" avatar_shadow="false"balloon_shadow="true" avatar_hide="false" font_size="12"]';
+//massage2(User)
+$massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_position="under_avatar" radius="true" avatar_border="false" avatar_shadow="false" balloon_shadow="true" avatar_hide="false" font_size="12" name="'.$userId.'"]';
 
 //Sendgrid-1
 require __DIR__ . '/../vendor/autoload.php';
@@ -70,7 +70,7 @@ if($type == "image"){
 	$massage0 = 'お客様からのメッセージ<br>です';
 	//Sendgrid-2
 	$email->setSubject('[rakuten03]' . $messageId)
-		  ->setHtml('tags:'.$userId.$massage1.$massage0.'[/word_balloon]'.$massage2.'/img/'.$filemessage.'[/word_balloon]');
+		  ->setHtml('tags:'.$userId.$massage1./img/.$filename.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]');
 		  //->addAttachment('/img/'.$filename, $filename);
 	$sendgrid->send($email);
 	
