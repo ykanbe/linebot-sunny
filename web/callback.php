@@ -13,6 +13,15 @@ $messageId = $jsonObj->{"events"}[0]->{"message"}->{"id"};
 //ReplyToken取得
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
+//Sendgrid-1
+require 'vendor/autoload.php';
+$sendgrid = new SendGrid("SENDGRID_APIKEY");
+$email    = new SendGrid\Email();
+$email->addTo("wpbot@azo.jp")
+	  ->setFrom("linebot@azo.jp")
+	  ->setSubject("[rakuten04]" . $messageId)
+	  ->setHtml("tags:" . $type);
+
 //メッセージ以外のときは何も返さず終了
 if($type != "text" && $type != "image"){
 	exit;
@@ -52,8 +61,10 @@ if($type == "image"){
     "type" => "text",
     "text" => $filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename
   ];
-  //sendgrid
-  toMail($messageId);
+  
+	//Sendgrid-2
+	$sendgrid->send($email);
+	
 } else if ($text == 'はい') {
   $response_format_text = [
     "type" => "template",
@@ -191,18 +202,6 @@ if($type == "image"){
         ]
     ]
   ];
-}
-
-//Sendgrid
-function toMail($msid) {
-	require 'vendor/autoload.php';
-	$sendgrid = new SendGrid("SENDGRID_APIKEY");
-	$email    = new SendGrid\Email();
-	$email->addTo("wpbot@azo.jp")
-		  ->setFrom("linebot@azo.jp")
-		  ->setSubject("Sending with SendGrid is Fun" . $msid)
-		  ->setHtml("and easy to do anywhere, even with PHP");
-	$sendgrid->send($email);
 }
 
 $post_data = [
