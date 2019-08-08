@@ -14,13 +14,13 @@ $messageId = $jsonObj->{"events"}[0]->{"message"}->{"id"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
 //Sendgrid-1
-require 'vendor/autoload.php';
-$sendgrid = new SendGrid("SENDGRID_APIKEY");
+require __DIR__ . '/../vendor/autoload.php';
+$sendgrid = new SendGrid(getenv('SENDGRID_USERNAME'), getenv('SENDGRID_PASSWORD'));
 $email    = new SendGrid\Email();
-$email->addTo("wpbot@azo.jp")
-	  ->setFrom("linebot@azo.jp")
-	  ->setSubject("[rakuten04]" . $messageId)
-	  ->setHtml("tags:" . $type);
+$email->addTo('wpbot@azo.jp')
+	  ->setFrom('linebot@azo.jp')
+	  ->setSubject('[rakuten04]' . $messageId)
+	  ->setText('tags:' . $type);
 
 //メッセージ以外のときは何も返さず終了
 if($type != "text" && $type != "image"){
