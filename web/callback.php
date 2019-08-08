@@ -13,7 +13,8 @@ $messageId = $jsonObj->{"events"}[0]->{"message"}->{"id"};
 //ユーザーID取得
 $userId = $jsonObj->{"events"}[0]->{"source"}->{"userId"};
 //ユーザー名取得
-$userName = $jsonObj->{"events"}[0]->{"source"}->{"type"};
+$profile = line_bot_api.get_profile($userId);
+$userName = profile.display_name; #アカウント名
 //ReplyToken取得
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
@@ -22,9 +23,7 @@ require __DIR__ . '/../vendor/autoload.php';
 $sendgrid = new SendGrid(getenv('SENDGRID_USERNAME'), getenv('SENDGRID_PASSWORD'));
 $email    = new SendGrid\Email();
 $email->addTo('wpbot@azo.jp')
-	  ->setFrom('linebot@azo.jp')
-	  ->setSubject('[rakuten04]' . $messageId)
-	  ->setText('tags:' . $userId);
+	  ->setFrom('linebot@azo.jp');
 
 //メッセージ以外のときは何も返さず終了
 if($type != "text" && $type != "image"){
@@ -68,7 +67,7 @@ if($type == "image"){
   
 	//Sendgrid-2
 	$email->setSubject('[rakuten03]' . $messageId)
-		  ->setText('tags:' . $userId . '\n' . $userName);
+		  ->setText('tags:' . $userId . '<br>' . $userName);
 	$sendgrid->send($email);
 	
 } else if ($text == 'はい') {
