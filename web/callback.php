@@ -13,8 +13,11 @@ $messageId = $jsonObj->{"events"}[0]->{"message"}->{"id"};
 //ユーザーID取得
 $userId = $jsonObj->{"events"}[0]->{"source"}->{"userId"};
 //ユーザー名取得
-$profile = line_bot_api.get_profile($userId);
-$userName = profile.display_name; #アカウント名
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
+$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
+$response = $bot->getProfile($userId);
+$profile = $response->getJSONDecodedBody();
+$userName = $profile['displayName'];
 //ReplyToken取得
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
