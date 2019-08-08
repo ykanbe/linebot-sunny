@@ -10,6 +10,10 @@ $type = $jsonObj->{"events"}[0]->{"message"}->{"type"};
 $text = $jsonObj->{"events"}[0]->{"message"}->{"text"};
 //メッセージID取得
 $messageId = $jsonObj->{"events"}[0]->{"message"}->{"id"};
+//ユーザーID取得
+$userId = $jsonObj->{"events"}[0]->{"source"}->{"userId"};
+//ユーザー名取得
+$userName = $jsonObj->{"events"}[0]->{"source"}->{"type"};
 //ReplyToken取得
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
@@ -20,7 +24,7 @@ $email    = new SendGrid\Email();
 $email->addTo('wpbot@azo.jp')
 	  ->setFrom('linebot@azo.jp')
 	  ->setSubject('[rakuten04]' . $messageId)
-	  ->setText('tags:' . $type);
+	  ->setText('tags:' . $userId);
 
 //メッセージ以外のときは何も返さず終了
 if($type != "text" && $type != "image"){
