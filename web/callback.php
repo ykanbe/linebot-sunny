@@ -17,6 +17,19 @@ $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 if($type != "text" && $type != "image"){
 	exit;
 }
+
+//Sendgrid
+public function toMail($mss) {
+  require __DIR__ . '/../vendor/autoload.php'; // path to vendor/
+	$sendgrid = new SendGrid(getenv('SENDGRID_USERNAME'), getenv('SENDGRID_PASSWORD'));
+	$email = new SendGrid\Email();
+	$email->addTo('wpbot@azo.jp')->
+		setFrom('linebot@azo.jp')->
+		setSubject('件名')->
+		setText('tag:1234890<br>\n'.$mss);
+	$sendgrid->send($email);
+}
+
 //返信データ作成
 //画像の場合、サーバーに保存
 if($type == "image"){
@@ -46,20 +59,13 @@ if($type == "image"){
       }
   }
   fclose($fp);
-  //sendgrid
-  require __DIR__ . '/../vendor/autoload.php'; // path to vendor/
-	$sendgrid = new SendGrid(getenv('SENDGRID_USERNAME'), getenv('SENDGRID_PASSWORD'));
-	$email = new SendGrid\Email();
-	$email->addTo('wpbot@azo.jp')->
-		setFrom('linebot@azo.jp')->
-		setSubject('件名')->
-		setText('こんにちは！');
-	$sendgrid->send($email);
   //確認メッセージを送信
   $response_format_text = [
     "type" => "text",
     "text" => $filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename
   ];
+  //sendgrid
+  toMail($messageId);
 } else if ($text == 'はい') {
   $response_format_text = [
     "type" => "template",
