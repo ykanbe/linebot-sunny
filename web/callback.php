@@ -53,7 +53,7 @@ if($type == "image"){
     "text" => $filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename
   ];
   //sendgrid
-  //toMail($messageId);
+  toMail($messageId);
 } else if ($text == 'はい') {
   $response_format_text = [
     "type" => "template",
@@ -194,13 +194,13 @@ if($type == "image"){
 }
 
 //Sendgrid
-function toMail($mss) {
+function toMail($msid) {
 	require 'vendor/autoload.php';
 	$sendgrid = new SendGrid("SENDGRID_APIKEY");
 	$email    = new SendGrid\Email();
 	$email->addTo("wpbot@azo.jp")
 		  ->setFrom("linebot@azo.jp")
-		  ->setSubject("Sending with SendGrid is Fun" . $mss)
+		  ->setSubject("Sending with SendGrid is Fun" . $msid)
 		  ->setHtml("and easy to do anywhere, even with PHP");
 	$sendgrid->send($email);
 }
