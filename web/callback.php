@@ -12,14 +12,14 @@ $text = $jsonObj->{"events"}[0]->{"message"}->{"text"};
 $messageId = $jsonObj->{"events"}[0]->{"message"}->{"id"};
 //ユーザーID取得
 $userId = $jsonObj->{"events"}[0]->{"source"}->{"userId"};
-//ユーザー名取得
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
-$response = $bot->getProfile($userId);
-$profile = $response->getJSONDecodedBody();
-$userName = $profile['displayName'];
 //ReplyToken取得
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
+//massage0
+$massage0 = '';
+//massage1
+$massage1 = '<br>[word_balloon id="2" position="R" size="S" balloon="line" name_position="under_avatar" radius="true" avatar_border="false" avatar_shadow="false"balloon_shadow="true" avatar_hide="false" font_size="12" name="' . $userId . '"]';
+//massage2
+$massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_position="under_avatar" radius="true" avatar_border="false" avatar_shadow="false" balloon_shadow="true" avatar_hide="false" font_size="12"]';
 
 //Sendgrid-1
 require __DIR__ . '/../vendor/autoload.php';
@@ -67,10 +67,10 @@ if($type == "image"){
     "type" => "text",
     "text" => $filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename
   ];
-  
+	$massage0 = $filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename;
 	//Sendgrid-2
 	$email->setSubject('[rakuten03]' . $messageId)
-		  ->setText('tags:' . $userId . '<br>' . $userName);
+		  ->setText('tags:'.$userId.$massage1.$filemessage.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]');
 	$sendgrid->send($email);
 	
 } else if ($text == 'はい') {
