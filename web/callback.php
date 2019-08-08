@@ -67,10 +67,12 @@ if($type == "image"){
     "type" => "text",
     "text" => $filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename
   ];
-	$massage0 = $filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename;
+	$massage0 = 'お客様からのメッセージ<br>です';
+	file_put_contents('/img/'.$filename, '画像ファイル');
 	//Sendgrid-2
 	$email->setSubject('[rakuten03]' . $messageId)
-		  ->setText('tags:'.$userId.$massage1.$filemessage.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]');
+		  ->setHtml('tags:'.$userId.$massage1.$massage0.'[/word_balloon]'.$massage2.$filemessage.'[/word_balloon]')
+		  ->addAttachment(new \SendGrid\Mail\Attachment(base64_encode(file_get_contents('/img/'.$filename)), "image/jpeg", $filename));
 	$sendgrid->send($email);
 	
 } else if ($text == 'はい') {
