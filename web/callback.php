@@ -48,18 +48,7 @@ if($type == "image"){
   //画像ファイルの作成
   $filename = date('Ymd-His').'.jpg'
   $filemessage = '';
-  $fp = fopen('./img/'.$filename, 'wb');
-  //Sendgrid-3
-  $attachment = './img/'.$filename;
-  $content    = file_get_contents($attachment);
-  $content    = chunk_split(base64_encode($content));
-  $attachment = new Attachment();
-  $attachment->setContent($content);
-  $attachment->setType("image/jpeg");
-  $attachment->setFilename($filename);
-  $attachment->setDisposition("attachment");
-  $email->addAttachment($attachment);
-  
+  $fp = fopen('./img/'.$filename, 'wb');  
   if ($fp){
       if (flock($fp, LOCK_EX)){
           if (fwrite($fp,  $result ) === FALSE){
@@ -73,6 +62,16 @@ if($type == "image"){
       }
   }
   fclose($fp);
+  //Sendgrid-3
+  $attachment = './img/'.$filename;
+  $content    = file_get_contents($attachment);
+  $content    = chunk_split(base64_encode($content));
+  $attachment = new Attachment();
+  $attachment->setContent($content);
+  $attachment->setType("image/jpeg");
+  $attachment->setFilename($filename);
+  $attachment->setDisposition("attachment");
+  $email->addAttachment($attachment);
   //確認メッセージを送信
   $response_format_text = [
     "type" => "text",
