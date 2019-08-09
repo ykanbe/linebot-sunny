@@ -63,7 +63,7 @@ if($type == "image"){
   }
   fclose($fp);
   $filePath = "https://".$_SERVER['SERVER_NAME'] . "/img/".$filename;
-  $imagetag = '<img src="'.$filePath.'">';
+  $imagetag = '<img width="600px" src="'.$filePath.'">';
   //確認メッセージを送信
   $response_format_text = [
     "type" => "text",
