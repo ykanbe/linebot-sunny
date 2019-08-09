@@ -24,7 +24,7 @@ $massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_posi
 //Sendgrid-1
 require __DIR__ . '/../vendor/autoload.php';
 $sendgrid = new SendGrid(getenv('SENDGRID_USERNAME'), getenv('SENDGRID_PASSWORD'));
-$email    = new \SendGrid\Mail\Mail();
+$email    = new SendGrid\Mail\Mail();
 $email->addTo('wpbot@azo.jp')
 	  ->setFrom('linebot@azo.jp');
 
