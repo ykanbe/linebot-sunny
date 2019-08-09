@@ -24,7 +24,7 @@ $massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_posi
 //Sendgrid-1
 require __DIR__ . '/../vendor/autoload.php';
 $sendgrid = new SendGrid(getenv('SENDGRID_USERNAME'), getenv('SENDGRID_PASSWORD'));
-$email    = new SendGrid\Email();
+$email = new SendGrid\Email();
 $email->addTo('wpbot@azo.jp')
 	  ->setFrom('linebot@azo.jp');
 
@@ -63,7 +63,7 @@ if($type == "image"){
   }
   fclose($fp);
   //Sendgrid-3
-  $attachment = './img/'.$filename;
+  $attachment = '/img/'.$filename;
   $content    = file_get_contents($attachment);
   $content    = chunk_split(base64_encode($content));
   $attachment = new Attachment();
