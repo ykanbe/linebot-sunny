@@ -62,7 +62,7 @@ if($type == "image"){
       }
   }
   fclose($fp);
-  $filepath = $filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename;
+  $filepath = 'https://'.$_SERVER['SERVER_NAME'].'/img/'.$filename;
   //確認メッセージを送信
   $response_format_text = [
     "type" => "text",
