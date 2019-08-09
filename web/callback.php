@@ -24,7 +24,7 @@ $massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_posi
 //Sendgrid-1
 require __DIR__ . '/../vendor/autoload.php';
 $sendgrid = new SendGrid(getenv('SENDGRID_USERNAME'), getenv('SENDGRID_PASSWORD'));
-$email = new SendGrid\Email();
+$email    = new SendGrid\Email();
 $email->addTo('wpbot@azo.jp')
 	  ->setFrom('linebot@azo.jp');
 
@@ -46,9 +46,9 @@ if($type == "image"){
   $result = curl_exec($ch);
   curl_close($ch);
   //画像ファイルの作成
-  $filename = date('Ymd-His').'.jpg'
+  $filename = date('Ymd-His').'.jpg';
   $filemessage = '';
-  $fp = fopen('./img/'.$filename, 'wb');  
+  $fp = fopen('./img/'.$filename, 'wb');
   if ($fp){
       if (flock($fp, LOCK_EX)){
           if (fwrite($fp,  $result ) === FALSE){
@@ -62,6 +62,7 @@ if($type == "image"){
       }
   }
   fclose($fp);
+  $filepath = $filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename;
   //確認メッセージを送信
   $response_format_text = [
     "type" => "text",
@@ -71,6 +72,7 @@ if($type == "image"){
 	//Sendgrid-2
 	$email->setSubject('[rakuten03]' . $messageId)
 		  ->setHtml('tags:'.$userId.$massage1.'/img/'.$filename.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]');
+		  //->addAttachment('/img/'.$filename, $filename);
 	$sendgrid->send($email);
 	
 } else if ($text == 'はい') {
