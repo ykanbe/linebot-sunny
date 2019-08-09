@@ -24,7 +24,7 @@ $massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_posi
 //Sendgrid-1
 require __DIR__ . '/../vendor/autoload.php';
 $sendgrid = new SendGrid(getenv('SENDGRID_USERNAME'), getenv('SENDGRID_PASSWORD'));
-$email    = new SendGrid\Mail\Mail();
+$email    = new SendGrid\Email();
 $email->addTo('wpbot@azo.jp')
 	  ->setFrom('linebot@azo.jp');
 
@@ -62,8 +62,8 @@ if($type == "image"){
       }
   }
   fclose($fp);
-  $filepath = 'https://'.$_SERVER['SERVER_NAME'].'/img/'.$filename;
-  $imagetag = '<img src="'.$filepath.'">';
+  $filePath = 'img/';
+  $imagetag = '<img src="'.$filePath.'">';
   //確認メッセージを送信
   $response_format_text = [
     "type" => "text",
@@ -71,9 +71,17 @@ if($type == "image"){
   ];
 	$massage0 = 'お客様からのメッセージ<br>です';
 	//Sendgrid-2
+	$attachment = new SendGrid\Attachment();
+	$handle = fopen($filePath, "rb");
+	$contents = fread($handle, filesize($filePath));
+	$attachment->setContent(base64_encode($contents));
+	$attachment->setFilename("filename.jpg");
+	$fileInfo = new FInfo(FILEINFO_MIME_TYPE);
+	$attachment->setType($fileInfo->file($filePath));
+	$email->addAttachment($attachment);
+	$handle = fopen($filePath, "rb");
 	$email->setSubject('[rakuten03]' . $messageId)
-		  ->setHtml('tags:'.$userId.$massage1.$filepath.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]'.$imagetag);
-	//$email->addAttachment(new SendGrid\Email\Attachment(base64_encode(file_get_contents($filepath)), "image/jpeg", $filename));
+		  ->setHtml('tags:'.$userId.$massage1.$filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]'.$imagetag);
 	$sendgrid->send($email);
 	
 } else if ($text == 'はい') {
