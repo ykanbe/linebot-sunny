@@ -70,15 +70,6 @@ if($type == "image"){
     "text" => $filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename
   ];
 	$massage0 = 'お客様からのメッセージ<br>です';
-	//Sendgrid-2
-	$attachment = new SendGrid\Attachment();
-	$handle = fopen('img/'.$filename, "rb");
-	$contents = fread($handle, filesize('img/'.$filename));
-	$attachment->setContent(base64_encode($contents));
-	$attachment->setFilename("filename.jpg");
-	$fileInfo = new FInfo(FILEINFO_MIME_TYPE);
-	$attachment->setType($fileInfo->file('img/'.$filename));
-	$email->addAttachment($attachment);
 	$email->setSubject('[rakuten03]' . $messageId)
 		  ->setHtml('tags:'.$userId.$massage1.$filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]'.$imagetag);
 	$sendgrid->send($email);
