@@ -62,16 +62,6 @@ if($type == "image"){
       }
   }
   fclose($fp);
-  //Sendgrid-3
-  $attachment = './img/'.$filename;
-  $content    = file_get_contents($attachment);
-  $content    = chunk_split(base64_encode($content));
-  $attachment = new Attachment();
-  $attachment->setContent($content);
-  $attachment->setType("image/jpeg");
-  $attachment->setFilename("RenamedFile.jpg");
-  $attachment->setDisposition("attachment");
-  $email->addAttachment($attachment);
   //確認メッセージを送信
   $response_format_text = [
     "type" => "text",
