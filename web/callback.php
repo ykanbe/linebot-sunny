@@ -71,7 +71,7 @@ if($type == "image"){
 	$massage0 = 'お客様からのメッセージ<br>です';
 	//Sendgrid-2
 	$email->setSubject('[rakuten03]' . $messageId)
-		  ->setHtml('tags:'.$userId.$massage1.'/img/'.$filename.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]');
+		  ->setHtml('tags:'.$userId.$massage1.$filepath.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]');
 		  //->addAttachment('/img/'.$filename, $filename);
 	$sendgrid->send($email);
 	
