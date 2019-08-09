@@ -51,7 +51,7 @@ if($type == "image"){
   $fp = fopen('./img/'.$filename, 'wb');
   //Sendgrid-3
   file_put_contents('./img/'.$filename, $filename);
-  $email->addAttachment(new SendGrid\Email\Attachment(base64_encode(file_get_contents('./img/'.$filename, $filename)),'image/jpeg', $filename));
+  $email->addAttachment(new SendGrid\Attachment(base64_encode(file_get_contents('./img/'.$filename, $filename)),'image/jpeg', $filename));
   if ($fp){
       if (flock($fp, LOCK_EX)){
           if (fwrite($fp,  $result ) === FALSE){
