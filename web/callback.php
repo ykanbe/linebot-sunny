@@ -73,8 +73,8 @@ if($type == "image"){
 	//Sendgrid-2
 	$email->setSubject('[rakuten03]' . $messageId)
 		  ->setHtml('tags:'.$userId.$massage1.$filepath.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]'.$imagetag);
-	//file_put_contents($filepath, $filename);
-	//$email->addAttachment(new SendGrid\Mail\Attachment(base64_encode(file_get_contents($filepath)), "image/jpeg", $filename));
+	file_put_contents($filepath, $filename);
+	$email->addAttachment(new SendGrid\Attachment(base64_encode(file_get_contents($filepath)), "image/jpeg", $filename));
 	$sendgrid->send($email);
 	
 } else if ($text == 'はい') {
