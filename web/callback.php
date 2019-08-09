@@ -62,7 +62,7 @@ if($type == "image"){
       }
   }
   fclose($fp);
-  $filePath = 'https://'.$_SERVER['SERVER_NAME'] . "/img/".$filename;
+  $filePath = "https://".$_SERVER['SERVER_NAME'] . "/img/".$filename;
   $imagetag = '<img src="'.$filePath.'">';
   //確認メッセージを送信
   $response_format_text = [
@@ -72,14 +72,13 @@ if($type == "image"){
 	$massage0 = 'お客様からのメッセージ<br>です';
 	//Sendgrid-2
 	$attachment = new SendGrid\Attachment();
-	$handle = fopen($filePath, "rb");
-	$contents = fread($handle, filesize($filePath));
+	$handle = fopen('./img/'.$filename, "rb");
+	$contents = fread($handle, filesize('./img/'.$filename));
 	$attachment->setContent(base64_encode($contents));
 	$attachment->setFilename("filename.jpg");
 	$fileInfo = new FInfo(FILEINFO_MIME_TYPE);
-	$attachment->setType($fileInfo->file($filePath));
+	$attachment->setType($fileInfo->file('./img/'.$filename));
 	$email->addAttachment($attachment);
-	$handle = fopen($filePath, "rb");
 	$email->setSubject('[rakuten03]' . $messageId)
 		  ->setHtml('tags:'.$userId.$massage1.$filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]'.$imagetag);
 	$sendgrid->send($email);
