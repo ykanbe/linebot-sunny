@@ -19,12 +19,13 @@ $massage0 = '';
 //massage1(BOT)
 $massage1 = '<br>[word_balloon id="2" position="R" size="S" balloon="line" name_position="under_avatar" radius="true" avatar_border="false" avatar_shadow="false"balloon_shadow="true" avatar_hide="false" font_size="12"]';
 //massage2(User)
-$massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_position="under_avatar" radius="true" avatar_border="false" avatar_shadow="false" balloon_shadow="true" avatar_hide="false" font_size="12" name="'.$userId.'"]';
+$massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_position="under_avatar" radius="true" avatar_border="false" avatar_shadow="false" balloon_shadow="true" avatar_hide="false" font_size="12"]';
 
 //Sendgrid-1
 require __DIR__ . '/../vendor/autoload.php';
 $sendgrid = new SendGrid(getenv('SENDGRID_USERNAME'), getenv('SENDGRID_PASSWORD'));
 $email    = new SendGrid\Email();
+$attachment = new SendGrid\Attachment();
 $email->addTo('wpbot@azo.jp')
 	  ->setFrom('linebot@azo.jp');
 
@@ -49,6 +50,13 @@ if($type == "image"){
   $filename = date('Ymd-His').'.jpg';
   $filemessage = '';
   $fp = fopen('./img/'.$filename, 'wb');
+  //Sendgrid-3
+  $contents = fread($fp, filesize('./img/'.$filename));
+  $attachment->setContent(base64_encode($contents));
+  $attachment->setFilename($filename);
+  $fileInfo = new FInfo(FILEINFO_MIME_TYPE);
+  $attachment->setType($fileInfo->file('./img/'.$filename));
+  $email->addAttachment($attachment);
   if ($fp){
       if (flock($fp, LOCK_EX)){
           if (fwrite($fp,  $result ) === FALSE){
@@ -71,7 +79,6 @@ if($type == "image"){
 	//Sendgrid-2
 	$email->setSubject('[rakuten03]' . $messageId)
 		  ->setHtml('tags:'.$userId.$massage1.'/img/'.$filename.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]');
-		  //->addAttachment('/img/'.$filename, $filename);
 	$sendgrid->send($email);
 	
 } else if ($text == 'はい') {
