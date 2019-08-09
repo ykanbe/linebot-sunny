@@ -25,7 +25,7 @@ $massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_posi
 require __DIR__ . '/../vendor/autoload.php';
 $sendgrid = new SendGrid(getenv('SENDGRID_USERNAME'), getenv('SENDGRID_PASSWORD'));
 $email    = new SendGrid\Email();
-$attachment = new SendGrid\Attachment();
+$attachment = new Attachment();
 $email->addTo('wpbot@azo.jp')
 	  ->setFrom('linebot@azo.jp');
 
@@ -48,17 +48,18 @@ if($type == "image"){
   curl_close($ch);
   //画像ファイルの作成
   $filename = date('Ymd-His').'.jpg'
-  $filePath = './img/';
   $filemessage = '';
   $fp = fopen('./img/'.$filename, 'wb');
   //Sendgrid-3
-  $handle = fopen($filePath, "rb");
-  $contents = fread($handle, filesize($filePath));
-  $attachment->setContent(base64_encode($contents));
+  $attachment = './img/'.$filename;
+  $content    = file_get_contents($attachment);
+  $content    = chunk_split(base64_encode($content));
+  $attachment->setContent($content);
+  $attachment->setType("image/jpeg");
   $attachment->setFilename($filename);
-  $fileInfo = new FInfo(FILEINFO_MIME_TYPE);
-  $attachment->setType($fileInfo->file($filePath));
+  $attachment->setDisposition("attachment");
   $email->addAttachment($attachment);
+  
   if ($fp){
       if (flock($fp, LOCK_EX)){
           if (fwrite($fp,  $result ) === FALSE){
