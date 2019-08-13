@@ -71,52 +71,87 @@ if($type == "image"){
     "type" => "text",
     "text" => $filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename
   ];
-	$massage0 = 'お客様からのメッセージ<br>です';
+	$massage0 = '（画像添付）';
 	$email->setSubject($messageId)
 		  ->setHtml('[category rakuten04][tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag);
 	$sendgrid->send($email);
 	
-} else if ($text == 'はい') {
+} else if ($text == '※購入前です') {
   $response_format_text = [
     "type" => "template",
-    "altText" => "こちらの〇〇はいかがですか？",
     "template" => [
       "type" => "buttons",
-      "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img1.jpg",
-      "title" => "○○レストラン",
-      "text" => "お探しのレストランはこれですね",
+      "text" => "ご利用店舗とご質問内容を選択してください",
       "actions" => [
           [
-            "type" => "postback",
-            "label" => "予約する",
-            "data" => "action=buy&itemid=123"
-          ],
-          [
-            "type" => "postback",
-            "label" => "電話する",
-            "data" => "action=pcall&itemid=123"
-          ],
-          [
-            "type" => "uri",
-            "label" => "詳しく見る",
-            "uri" => "https://" . $_SERVER['SERVER_NAME'] . "/"
+            "type" => "message",
+            "label" => "商品の納期を知りたい（サニープライズ）",
+            "text" => "商品の納期を知りたい：No.316908"
           ],
           [
             "type" => "message",
-            "label" => "違うやつ",
-            "text" => "違うやつお願い"
+            "label" => "商品の在庫を知りたい（サニープライズ）",
+            "text" => "商品の在庫を知りたい：No.316908"
+          ],
+          [
+            "type" => "message",
+            "label" => "商品の納期を知りたい（ハッピーサニーショップ）",
+            "text" => "※商品の納期を知りたい：No.316906"
+          ],
+          [
+            "type" => "message",
+            "label" => "商品の在庫を知りたい（ハッピーサニーショップ）",
+            "text" => "※商品の在庫を知りたい：No.316906"
           ]
       ]
     ]
   ];
-} else if ($text == 'いいえ') {
-  exit;
-} else if (strpos($text,'bc') !== false){
+} else if ($text == '※購入済です') {
   $response_format_text = [
-    "type" => "text",
-    "text" => "Hello, world"
+    "type" => "template",
+    "template" => [
+      "type" => "buttons",
+      "text" => "ご質問内容はなんですか？",
+      "actions" => [
+          [
+            "type" => "message",
+            "label" => "納期の確認",
+            "text" => "納期の確認をしたい"
+          ],
+          [
+            "type" => "message",
+            "label" => "返品",
+            "text" => "商品を返品したい"
+          ],
+          [
+            "type" => "message",
+            "label" => "交換",
+            "text" => "商品を交換したい"
+          ],
+          [
+            "type" => "message",
+            "label" => "お届け先の変更",
+            "text" => "お届け先を変更したい"
+          ],
+          [
+            "type" => "message",
+            "label" => "キャンセル",
+            "text" => "商品をキャンセルしたい"
+          ],
+          [
+            "type" => "message",
+            "label" => "領収書・納品書",
+            "text" => "領収書が欲しい"
+          ],
+          [
+            "type" => "message",
+            "label" => "その他（オペレーターと直接話したい）",
+            "text" => "その他"
+          ]
+      ]
+    ]
   ];
-} else if ($text == '違うやつお願い') {
+} else if ($text == '※違うやつお願い') {
   $response_format_text = [
     "type" => "template",
     "altText" => "候補を３つご案内しています。",
@@ -192,23 +227,32 @@ if($type == "image"){
       ]
     ]
   ];
+} else if (strpos($text,'316908') !== false){
+  $massage0 = $text;
+  $email->setSubject($messageId)
+        ->setHtml('[category rakuten07][tags '.$userId.']'.$massage2.$massage0.$massageend);
+  $sendgrid->send($email);
+} else if (strpos($text,'316906') !== false){
+  $massage0 = $text;
+  $email->setSubject($messageId)
+        ->setHtml('[category rakuten08][tags '.$userId.']'.$massage2.$massage0.$massageend);
+  $sendgrid->send($email);
 } else {
   $response_format_text = [
     "type" => "template",
-    "altText" => "こんにちわ 何かご用ですか？（はい／いいえ）",
     "template" => [
         "type" => "confirm",
-        "text" => "メッセージありがとうございます".chr(0x10000A)."\nこのアカウントは自動応答のみで対応しています(cellphone)\n何かご質問がございますか？",
+        "text" => "メッセージありがとうございます。\nこのアカウントは自動応答のみでのご対応になります。\nご質問がある場合、お手数ですが下記より質問の回答をお願い致します。",
         "actions" => [
             [
               "type" => "message",
-              "label" => "はい",
-              "text" => "はい"
+              "label" => "ご購入前のお客様はこちら",
+              "text" => "※購入前です"
             ],
             [
               "type" => "message",
-              "label" => "いいえ",
-              "text" => "いいえ"
+              "label" => "ご購入済のお客様はこちら",
+              "text" => "※購入済です"
             ]
         ]
     ]
