@@ -76,7 +76,7 @@ if($type == "image"){
 		  ->setHtml('[category rakuten04][tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag);
 	$sendgrid->send($email);
 	
-} else if ($text == '※購入前です') {
+} else if ($text == '購入前です') {
   $response_format_text = [
     "type" => "template",
 	"altText" => "こんばんは（はい／いいえ）",
@@ -107,7 +107,7 @@ if($type == "image"){
       ]
     ]
   ];
-} else if ($text == '※購入済です') {
+} else if ($text == '購入済です') {
   $response_format_text = [
     "type" => "template",
 	"altText" => "こんにちは（はい／いいえ）",
@@ -153,7 +153,7 @@ if($type == "image"){
       ]
     ]
   ];
-} else if ($text == '※違うやつお願い') {
+} else if ($text == '違うやつお願い') {
   $response_format_text = [
     "type" => "template",
     "altText" => "候補を３つご案内しています。",
@@ -250,12 +250,12 @@ if($type == "image"){
             [
               "type" => "message",
               "label" => "ご購入前のお客様はこちら",
-              "text" => "※購入前です"
+              "text" => "購入前です"
             ],
             [
               "type" => "message",
               "label" => "ご購入済のお客様はこちら",
-              "text" => "※購入済です"
+              "text" => "購入済です"
             ]
         ]
     ]
