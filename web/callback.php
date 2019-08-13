@@ -20,6 +20,8 @@ $massage0 = '';
 $massage1 = '<br>[word_balloon id="2" position="R" size="S" balloon="line" name_position="under_avatar" radius="true" avatar_border="false" avatar_shadow="false"balloon_shadow="true" avatar_hide="false" font_size="12"]';
 //massage2(User)
 $massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_position="under_avatar" radius="true" avatar_border="false" avatar_shadow="false" balloon_shadow="true" avatar_hide="false" font_size="12"]';
+//massageend()
+$massageend = '[/word_balloon]';
 
 //Sendgrid-1
 require __DIR__ . '/../vendor/autoload.php';
@@ -63,7 +65,7 @@ if($type == "image"){
   }
   fclose($fp);
   $filePath = "https://".$_SERVER['SERVER_NAME'] . "/img/".$filename;
-  $imagetag = '<div class="thumbimg"><img src="'.$filePath.'"></div>';
+  $imagetag = '<img src="'.$filePath.'">';
   //確認メッセージを送信
   $response_format_text = [
     "type" => "text",
@@ -71,7 +73,7 @@ if($type == "image"){
   ];
 	$massage0 = 'お客様からのメッセージ<br>です';
 	$email->setSubject($messageId)
-		  ->setHtml('[category rakuten03][tags '.$userId.']'.$massage1.$filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]'.$imagetag);
+		  ->setHtml('[category rakuten03][tags '.$userId.']'.$massage1.$filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename.$massageend.$massage2.$massage0.$massageend.$imagetag);
 	$sendgrid->send($email);
 	
 } else if ($text == 'はい') {
