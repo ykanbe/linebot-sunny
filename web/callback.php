@@ -63,15 +63,15 @@ if($type == "image"){
   }
   fclose($fp);
   $filePath = "https://".$_SERVER['SERVER_NAME'] . "/img/".$filename;
-  $imagetag = '<img width="600px" src="'.$filePath.'">';
+  $imagetag = '<img class="thumbimg" src="'.$filePath.'">';
   //確認メッセージを送信
   $response_format_text = [
     "type" => "text",
     "text" => $filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename
   ];
 	$massage0 = 'お客様からのメッセージ<br>です';
-	$email->setSubject('[rakuten03]' . $messageId)
-		  ->setHtml('[tags '.$userId.']'.$massage1.$filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]'.$imagetag);
+	$email->setSubject($messageId)
+		  ->setHtml('[category rakuten03][tags '.$userId.']'.$massage1.$filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]'.$imagetag);
 	$sendgrid->send($email);
 	
 } else if ($text == 'はい') {
