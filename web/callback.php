@@ -79,6 +79,7 @@ if($type == "image"){
 } else if ($text == '※購入前です') {
   $response_format_text = [
     "type" => "template",
+	"altText" => "こんばんは（はい／いいえ）",
     "template" => [
       "type" => "buttons",
       "text" => "ご利用店舗とご質問内容を選択してください",
@@ -109,6 +110,7 @@ if($type == "image"){
 } else if ($text == '※購入済です') {
   $response_format_text = [
     "type" => "template",
+	"altText" => "こんにちは（はい／いいえ）",
     "template" => [
       "type" => "buttons",
       "text" => "ご質問内容はなんですか？",
@@ -240,6 +242,7 @@ if($type == "image"){
 } else {
   $response_format_text = [
     "type" => "template",
+	"altText" => "こんにちは 何かご用ですか？（はい／いいえ）",
     "template" => [
         "type" => "confirm",
         "text" => "メッセージありがとうございます。\nこのアカウントは自動応答のみでのご対応になります。\nご質問がある場合、お手数ですが下記より質問の回答をお願い致します。",
