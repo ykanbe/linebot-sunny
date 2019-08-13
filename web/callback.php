@@ -73,7 +73,7 @@ if($type == "image"){
   ];
 	$massage0 = 'お客様からのメッセージ<br>です';
 	$email->setSubject($messageId)
-		  ->setHtml('[category rakuten03][tags '.$userId.']'.$massage1.$filemessage.'<br>'.$filePath.$massageend.$massage2.$massage0.$massageend.$imagetag);
+		  ->setHtml('[category rakuten04][tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag);
 	$sendgrid->send($email);
 	
 } else if ($text == 'はい') {
