@@ -82,6 +82,7 @@ if($type == "image"){
 	"altText" => "こんばんは（はい／いいえ）",
     "template" => [
       "type" => "buttons",
+	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img1.jpg",
 	  "title" => "○○レストラン",
       "text" => "ご利用店舗とご質問内容を選択してください",
       "actions" => [
