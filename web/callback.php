@@ -25,7 +25,7 @@ $massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_posi
 require __DIR__ . '/../vendor/autoload.php';
 $sendgrid = new SendGrid(getenv('SENDGRID_USERNAME'), getenv('SENDGRID_PASSWORD'));
 $email    = new SendGrid\Email();
-$email->addTo('wpbot@azo.jp')
+$email->addTo('hele483cobi@post.wordpress.com')
 	  ->setFrom('linebot@azo.jp');
 
 //メッセージ以外のときは何も返さず終了
@@ -71,7 +71,7 @@ if($type == "image"){
   ];
 	$massage0 = 'お客様からのメッセージ<br>です';
 	$email->setSubject('[rakuten03]' . $messageId)
-		  ->setHtml('tags:'.$userId.$massage1.$filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]'.$imagetag);
+		  ->setHtml('[tags '.$userId.']'.$massage1.$filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename.'[/word_balloon]'.$massage2.$massage0.'[/word_balloon]'.$imagetag);
 	$sendgrid->send($email);
 	
 } else if ($text == 'はい') {
