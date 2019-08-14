@@ -40,10 +40,10 @@ if($type != "text" && $type != "image"){
 //メッセージから店舗名を取得
 if (strpos($text,'ハッピーサニーショップ') !== false) {
 	$massagecat = '316906';
-	$massageshop = 'ハッピーサニーショップ'
+	$massageshop = 'ハッピーサニーショップ';
 } else if (strpos($text,'サニープライズ') !== false) {
 	$massagecat = '316908';
-	$massageshop = 'サニープライズ'
+	$massageshop = 'サニープライズ';
 }
 
 //返信データ作成
