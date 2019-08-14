@@ -76,10 +76,10 @@ if($type == "image"){
 		  ->setHtml('[category rakuten04][tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag);
 	$sendgrid->send($email);
 	
-} else if ($text == '※購入前です') {
+} else if ($text == '購入前です') {
   $response_format_text = [
     "type" => "template",
-	"altText" => "※購入前です",
+	"altText" => "購入前です",
     "template" => [
       "type" => "buttons",
       "text" => "納期や在庫確認のご質問以外の場合、楽天ショップのお問い合わせフォームを表示しますので、そちらにご入力をお願いいたします。\nサニープライズは①、ハッピーサニーショップは②を選択してください",
@@ -107,10 +107,10 @@ if($type == "image"){
       ]
     ]
   ];
-} else if ($text == '※購入済です') {
+} else if ($text == '購入済です') {
   $response_format_text = [
     "type" => "template",
-	"altText" => "※購入済です",
+	"altText" => "購入済です",
     "template" => [
       "type" => "carousel",
       "columns" => [
@@ -202,13 +202,13 @@ if($type == "image"){
         "actions" => [
             [
               "type" => "message",
-              "label" => "ご購入前のお客様はこちら",
-              "text" => "※購入前です"
+              "label" => "ご購入前",
+              "text" => "購入前です"
             ],
             [
               "type" => "message",
-              "label" => "ご購入済のお客様はこちら",
-              "text" => "※購入済です"
+              "label" => "ご購入済",
+              "text" => "購入済です"
             ]
         ]
     ]
