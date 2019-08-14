@@ -76,7 +76,7 @@ if($type == "image"){
 		  ->setHtml('[category rakuten04][tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag);
 	$sendgrid->send($email);
 	
-} else if ($text == '購入前です') {
+} else if (strpos($text,'購入前') !== false) {
   $response_format_text = [
     "type" => "template",
 	"altText" => "購入前です",
@@ -107,7 +107,7 @@ if($type == "image"){
       ]
     ]
   ];
-} else if ($text == '購入済です') {
+} else if (strpos($text,'購入済') !== false) {
   $response_format_text = [
     "type" => "template",
     "altText" => "候補を３つご案内しています。",
@@ -115,7 +115,6 @@ if($type == "image"){
       "type" => "carousel",
       "columns" => [
           [
-            "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img2-1.jpg",
             "title" => "●●レストラン",
             "text" => "こちらにしますか？",
             "actions" => [
@@ -137,7 +136,6 @@ if($type == "image"){
             ]
           ],
           [
-            "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img2-2.jpg",
             "title" => "▲▲レストラン",
             "text" => "それともこちら？（２つ目）",
             "actions" => [
@@ -159,7 +157,6 @@ if($type == "image"){
             ]
           ],
           [
-            "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img2-3.jpg",
             "title" => "■■レストラン",
             "text" => "はたまたこちら？（３つ目）",
             "actions" => [
@@ -198,18 +195,28 @@ if($type == "image"){
     "type" => "template",
 	"altText" => "default",
     "template" => [
-        "type" => "confirm",
-        "text" => "メッセージありがとうございます。\nこのアカウントは自動応答のみでのご対応になります。\nご質問がある場合、お手数ですが下記より質問の回答をお願い致します。",
+        "type" => "buttons",
+        "text" => "このアカウントは自動応答のみでのご対応になります。\nご質問がある場合、ご利用店舗と質問を選択してください。\n①→サニープライズ\n②ハッピーサニーショップ",
         "actions" => [
             [
               "type" => "message",
-              "label" => "ご購入前",
-              "text" => "購入前です"
+              "label" => "①ご購入前",
+              "text" => "購入前です：サニープライズ"
             ],
             [
               "type" => "message",
-              "label" => "ご購入済",
-              "text" => "購入済です"
+              "label" => "①ご購入済",
+              "text" => "サニープライズで購入済です"
+            ],
+            [
+              "type" => "message",
+              "label" => "②ご購入前",
+              "text" => "購入前です：ハッピーサニーショップ"
+            ],
+            [
+              "type" => "message",
+              "label" => "②ご購入済",
+              "text" => "ハッピーサニーショップで購入済です"
             ]
         ]
     ]
