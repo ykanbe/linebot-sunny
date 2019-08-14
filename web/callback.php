@@ -129,7 +129,7 @@ if($type == "image"){
 } else if (strpos($text,'のよくある質問を見たい') !== false) {
   $response_format_text = [
     "type" => "template",
-	"altText" => "購入前",
+	"altText" => "質問",
     "template" => [
       "type" => "buttons",
 	  "title" => "よくある質問",
@@ -137,22 +137,22 @@ if($type == "image"){
       "actions" => [
           [
             "type" => "message",
-            "label" => "納期・配送について",
+            "label" => "納期・配送",
             "text" => $massageshop."の納期や配送状況を知りたい"
           ],
           [
             "type" => "message",
-            "label" => "返品・交換・キャンセル",
+            "label" => "返品・交換",
             "text" => $massageshop."の商品の返品・交換・キャンセルをしたい"
           ],
           [
             "type" => "message",
-            "label" => "領収書がほしい",
+            "label" => "領収書",
             "text" => $massageshop."の領収書発行について"
           ],
           [
             "type" => "message",
-            "label" => "支払方法や住所の変更",
+            "label" => "支払方法、住所変更",
             "uri" => $massageshop."支払方法や住所の変更がしたい"
           ]
       ]
