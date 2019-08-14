@@ -110,11 +110,12 @@ if($type == "image"){
 } else if ($text == '購入済です') {
   $response_format_text = [
     "type" => "template",
-	"altText" => "購入済です",
+    "altText" => "候補を３つご案内しています。",
     "template" => [
       "type" => "carousel",
       "columns" => [
           [
+            "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img2-1.jpg",
             "title" => "●●レストラン",
             "text" => "こちらにしますか？",
             "actions" => [
