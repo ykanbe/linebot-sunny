@@ -95,12 +95,12 @@ if($type == "image"){
             "text" => "商品の在庫を知りたい"
           ],
           [
-            "type" => "message",
+            "type" => "uri",
             "label" => "①その他",
             "uri" => "https://ask.step.rakuten.co.jp/inquiry-form/?page=simple-inquiry-top&act=login&shop_id=316908"
           ],
           [
-            "type" => "message",
+            "type" => "uri",
             "label" => "②その他",
             "uri" => "https://ask.step.rakuten.co.jp/inquiry-form/?page=simple-inquiry-top&act=login&shop_id=316906"
           ]
