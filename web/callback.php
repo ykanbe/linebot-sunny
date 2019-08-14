@@ -87,10 +87,27 @@ if($type == "image"){
 		  ->setHtml('[category rakuten04][tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag);
 	$sendgrid->send($email);
 	
-} else if (strpos($text,'購入前：') !== false) {
+} else if (strpos($text,'購入予定です（') !== false) {
   $response_format_text = [
     "type" => "template",
-	"altText" => "購入前です",
+	"altText" => "購入前",
+    "template" => [
+      "type" => "buttons",
+	  "title" => "ショップへ問い合わせ",
+      "text" => "納期や在庫につきましては商品ページに記載されております。\nそれ以外の場合、例えば「○日までに必要」や「Mサイズが5着ほしい」など、詳細をご記入いただけるとスムーズなご対応が可能です。\n通常営業日は営業カレンダーをご参照ください。\n※土日祝は窓口でのご対応はおやすみさせていただいています。",
+      "actions" => [
+          [
+            "type" => "uri",
+            "label" => "問い合わせ",
+            "uri" => "https://ask.step.rakuten.co.jp/inquiry-form/?page=simple-inquiry-top&act=login&shop_id=".$massagecat
+          ]
+      ]
+    ]
+  ];
+} else if (strpos($text,'購入予定です（') !== false) {
+  $response_format_text = [
+    "type" => "template",
+	"altText" => "購入前",
     "template" => [
       "type" => "buttons",
       "text" => "納期や在庫確認のご質問以外の場合、その他より楽天ショップのお問い合わせフォームからお問い合わせください。",
@@ -207,21 +224,21 @@ if($type == "image"){
             [
               "type" => "message",
               "label" => "①でご購入予定",
-              "text" => "購入前：サニープライズ"
+              "text" => "購入予定です（サニープライズ）"
             ],
             [
               "type" => "message",
-              "label" => "①でご注文済み",
+              "label" => "①でご注文済",
               "text" => "サニープライズで注文済です"
             ],
             [
               "type" => "message",
               "label" => "②でご購入予定",
-              "text" => "購入前：ハッピーサニーショップ"
+              "text" => "購入予定です（ハッピーサニーショップ）"
             ],
             [
               "type" => "message",
-              "label" => "②でご注文済み",
+              "label" => "②でご注文済",
               "text" => "ハッピーサニーショップで注文済です"
             ]
         ]
