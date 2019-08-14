@@ -126,6 +126,38 @@ if($type == "image"){
       ]
     ]
   ];
+} else if (strpos($text,'のよくある質問を見たい') !== false) {
+  $response_format_text = [
+    "type" => "template",
+	"altText" => "購入前",
+    "template" => [
+      "type" => "buttons",
+	  "title" => "よくある質問",
+      "text" => "よくある質問はこちら",
+      "actions" => [
+          [
+            "type" => "message",
+            "label" => "納期・配送について",
+            "text" => $massageshop."の納期や配送状況を知りたい"
+          ],
+          [
+            "type" => "message",
+            "label" => "返品・交換・キャンセル",
+            "text" => $massageshop."の商品の返品・交換・キャンセルをしたい"
+          ],
+          [
+            "type" => "message",
+            "label" => "領収書がほしい",
+            "text" => $massageshop."の領収書発行について"
+          ],
+          [
+            "type" => "message",
+            "label" => "支払方法や住所の変更",
+            "uri" => $massageshop."支払方法や住所の変更がしたい"
+          ]
+      ]
+    ]
+  ];
 } else if (strpos($text,'316908') !== false){
   $massage0 = $text;
   $email->setSubject($messageId)
