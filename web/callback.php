@@ -76,95 +76,43 @@ if($type == "image"){
 		  ->setHtml('[category rakuten04][tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag);
 	$sendgrid->send($email);
 	
-} else if ($text == '購入前です') {
+} else if ($text == '※購入前です') {
   $response_format_text = [
     "type" => "template",
-	"altText" => "こんばんは（はい／いいえ）",
     "template" => [
       "type" => "buttons",
-	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img1.jpg",
-	  "title" => "○○レストラン",
-      "text" => "ご利用店舗とご質問内容を選択してください",
+      "text" => "納期や在庫確認のご質問以外の場合、楽天ショップのお問い合わせフォームを表示しますので、そちらにご入力をお願いいたします。\nサニープライズは①、ハッピーサニーショップは②を選択してください",
       "actions" => [
           [
             "type" => "message",
-            "label" => "商品の納期を知りたい（サニープライズ）",
-            "text" => "商品の納期を知りたい：No.316908"
+            "label" => "納期について",
+            "text" => "商品の納期を知りたい"
           ],
           [
             "type" => "message",
-            "label" => "商品の在庫を知りたい（サニープライズ）",
-            "text" => "商品の在庫を知りたい：No.316908"
+            "label" => "在庫確認",
+            "text" => "商品の在庫を知りたい"
           ],
           [
             "type" => "message",
-            "label" => "商品の納期を知りたい（ハッピーサニーショップ）",
-            "text" => "※商品の納期を知りたい：No.316906"
+            "label" => "①その他",
+            "uri" => "https://ask.step.rakuten.co.jp/inquiry-form/?page=simple-inquiry-top&act=login&shop_id=316908"
           ],
           [
             "type" => "message",
-            "label" => "商品の在庫を知りたい（ハッピーサニーショップ）",
-            "text" => "※商品の在庫を知りたい：No.316906"
+            "label" => "②その他",
+            "uri" => "https://ask.step.rakuten.co.jp/inquiry-form/?page=simple-inquiry-top&act=login&shop_id=316906"
           ]
       ]
     ]
   ];
-} else if ($text == '購入済です') {
+} else if ($text == '※購入済です') {
   $response_format_text = [
     "type" => "template",
-	"altText" => "こんにちは（はい／いいえ）",
-    "template" => [
-      "type" => "buttons",
-	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img1.jpg",
-      "text" => "ご質問内容はなんですか？",
-      "actions" => [
-          [
-            "type" => "message",
-            "label" => "納期の確認",
-            "text" => "納期の確認をしたい"
-          ],
-          [
-            "type" => "message",
-            "label" => "返品",
-            "text" => "商品を返品したい"
-          ],
-          [
-            "type" => "message",
-            "label" => "交換",
-            "text" => "商品を交換したい"
-          ],
-          [
-            "type" => "message",
-            "label" => "お届け先の変更",
-            "text" => "お届け先を変更したい"
-          ],
-          [
-            "type" => "message",
-            "label" => "キャンセル",
-            "text" => "商品をキャンセルしたい"
-          ],
-          [
-            "type" => "message",
-            "label" => "領収書・納品書",
-            "text" => "領収書が欲しい"
-          ],
-          [
-            "type" => "message",
-            "label" => "その他（オペレーターと直接話したい）",
-            "text" => "その他"
-          ]
-      ]
-    ]
-  ];
-} else if ($text == '違うやつお願い') {
-  $response_format_text = [
-    "type" => "template",
-    "altText" => "候補を３つご案内しています。",
     "template" => [
       "type" => "carousel",
       "columns" => [
           [
-            "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img2-1.jpg",
             "title" => "●●レストラン",
             "text" => "こちらにしますか？",
             "actions" => [
@@ -245,7 +193,6 @@ if($type == "image"){
 } else {
   $response_format_text = [
     "type" => "template",
-	"altText" => "こんにちは 何かご用ですか？（はい／いいえ）",
     "template" => [
         "type" => "confirm",
         "text" => "メッセージありがとうございます。\nこのアカウントは自動応答のみでのご対応になります。\nご質問がある場合、お手数ですが下記より質問の回答をお願い致します。",
@@ -253,12 +200,12 @@ if($type == "image"){
             [
               "type" => "message",
               "label" => "ご購入前のお客様はこちら",
-              "text" => "購入前です"
+              "text" => "※購入前です"
             ],
             [
               "type" => "message",
               "label" => "ご購入済のお客様はこちら",
-              "text" => "購入済です"
+              "text" => "※購入済です"
             ]
         ]
     ]
