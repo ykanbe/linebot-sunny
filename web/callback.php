@@ -22,6 +22,8 @@ $massage1 = '<br>[word_balloon id="2" position="R" size="S" balloon="line" name_
 $massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_position="under_avatar" radius="true" avatar_border="false" avatar_shadow="false" balloon_shadow="true" avatar_hide="false" font_size="12"]';
 //massageend()
 $massageend = '[/word_balloon]';
+$massageshop = '';
+$massagecat = '';
 
 //Sendgrid-1
 require __DIR__ . '/../vendor/autoload.php';
@@ -33,6 +35,15 @@ $email->addTo('hele483cobi@post.wordpress.com')
 //メッセージ以外のときは何も返さず終了
 if($type != "text" && $type != "image"){
 	exit;
+}
+
+//メッセージから店舗名を取得
+if (strpos($text,'ハッピーサニーショップ') !== false) {
+	$massagecat = '316906';
+	$massageshop = 'ハッピーサニーショップ'
+} else if (strpos($text,'サニープライズ') !== false) {
+	$massagecat = '316908';
+	$massageshop = 'サニープライズ'
 }
 
 //返信データ作成
@@ -76,33 +87,28 @@ if($type == "image"){
 		  ->setHtml('[category rakuten04][tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag);
 	$sendgrid->send($email);
 	
-} else if (strpos($text,'購入前') !== false) {
+} else if (strpos($text,'購入前：') !== false) {
   $response_format_text = [
     "type" => "template",
 	"altText" => "購入前です",
     "template" => [
       "type" => "buttons",
-      "text" => "納期や在庫確認のご質問以外の場合、楽天ショップのお問い合わせフォームを表示しますので、そちらにご入力をお願いいたします。\nサニープライズは①、ハッピーサニーショップは②を選択してください",
+      "text" => "納期や在庫確認のご質問以外の場合、その他より楽天ショップのお問い合わせフォームからお問い合わせください。",
       "actions" => [
           [
             "type" => "message",
             "label" => "納期について",
-            "text" => "商品の納期を知りたい"
+            "text" => $massageshop."の商品の納期を知りたい"
           ],
           [
             "type" => "message",
-            "label" => "在庫確認",
-            "text" => "商品の在庫を知りたい"
+            "label" => "在庫の確認",
+            "text" => $massageshop."の商品の在庫を知りたい"
           ],
           [
             "type" => "uri",
-            "label" => "①その他",
-            "uri" => "https://ask.step.rakuten.co.jp/inquiry-form/?page=simple-inquiry-top&act=login&shop_id=316908"
-          ],
-          [
-            "type" => "uri",
-            "label" => "②その他",
-            "uri" => "https://ask.step.rakuten.co.jp/inquiry-form/?page=simple-inquiry-top&act=login&shop_id=316906"
+            "label" => "その他",
+            "uri" => "https://ask.step.rakuten.co.jp/inquiry-form/?page=simple-inquiry-top&act=login&shop_id=".$massagecat
           ]
       ]
     ]
@@ -196,27 +202,27 @@ if($type == "image"){
 	"altText" => "default",
     "template" => [
         "type" => "buttons",
-        "text" => "このアカウントは自動応答のみでのご対応になります。\nご質問がある場合、ご利用店舗と質問を選択してください。\n①→サニープライズ\n②ハッピーサニーショップ",
+        "text" => "このアカウントは自動応答のみでのご対応になります。\nご質問がある場合、ご利用店舗とお客様の情報を選択してください。\n①サニープライズ\n②ハッピーサニーショップ",
         "actions" => [
             [
               "type" => "message",
-              "label" => "①ご購入前",
-              "text" => "購入前です：サニープライズ"
+              "label" => "①でご購入予定",
+              "text" => "購入前：サニープライズ"
             ],
             [
               "type" => "message",
-              "label" => "①ご購入済",
-              "text" => "サニープライズで購入済です"
+              "label" => "①でご注文済み",
+              "text" => "サニープライズで注文済です"
             ],
             [
               "type" => "message",
-              "label" => "②ご購入前",
-              "text" => "購入前です：ハッピーサニーショップ"
+              "label" => "②でご購入予定",
+              "text" => "購入前：ハッピーサニーショップ"
             ],
             [
               "type" => "message",
-              "label" => "②ご購入済",
-              "text" => "ハッピーサニーショップで購入済です"
+              "label" => "②でご注文済み",
+              "text" => "ハッピーサニーショップで注文済です"
             ]
         ]
     ]
