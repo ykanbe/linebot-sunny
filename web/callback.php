@@ -137,23 +137,23 @@ if($type == "image"){
       "actions" => [
           [
             "type" => "message",
-            "label" => "納期・配送",
+            "label" => "納期・配送について",
             "text" => $massageshop."の納期や配送状況を知りたい"
           ],
           [
             "type" => "message",
-            "label" => "返品・交換",
+            "label" => "返品・交換・キャンセル",
             "text" => $massageshop."の商品の返品・交換・キャンセルをしたい"
           ],
           [
             "type" => "message",
-            "label" => "領収書",
+            "label" => "領収書がほしい",
             "text" => $massageshop."の領収書発行について"
           ],
           [
             "type" => "message",
-            "label" => "支払方法、住所変更",
-            "uri" => $massageshop."支払方法や住所の変更がしたい"
+            "label" => "支払方法や住所の変更",
+            "text" => $massageshop."支払方法や住所の変更がしたい"
           ]
       ]
     ]
