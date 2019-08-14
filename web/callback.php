@@ -79,6 +79,7 @@ if($type == "image"){
 } else if ($text == '※購入前です') {
   $response_format_text = [
     "type" => "template",
+	"altText" => "※購入前です",
     "template" => [
       "type" => "buttons",
       "text" => "納期や在庫確認のご質問以外の場合、楽天ショップのお問い合わせフォームを表示しますので、そちらにご入力をお願いいたします。\nサニープライズは①、ハッピーサニーショップは②を選択してください",
@@ -109,6 +110,7 @@ if($type == "image"){
 } else if ($text == '※購入済です') {
   $response_format_text = [
     "type" => "template",
+	"altText" => "※購入済です",
     "template" => [
       "type" => "carousel",
       "columns" => [
@@ -193,6 +195,7 @@ if($type == "image"){
 } else {
   $response_format_text = [
     "type" => "template",
+	"altText" => "default",
     "template" => [
         "type" => "confirm",
         "text" => "メッセージありがとうございます。\nこのアカウントは自動応答のみでのご対応になります。\nご質問がある場合、お手数ですが下記より質問の回答をお願い致します。",
