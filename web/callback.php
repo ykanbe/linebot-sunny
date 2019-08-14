@@ -94,7 +94,7 @@ if($type == "image"){
     "template" => [
       "type" => "buttons",
 	  "title" => "ショップへ問い合わせ",
-      "text" => "楽天市場店のお問い合わせフォームが開きます",
+      "text" => $massageshop."楽天市場店のお問い合わせフォームが開きます",
       "actions" => [
           [
             "type" => "uri",
