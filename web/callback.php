@@ -80,11 +80,11 @@ if($type == "image"){
   //確認メッセージを送信
   $response_format_text = [
     "type" => "text",
-    "text" => $filemessage."\nhttps://".$_SERVER['SERVER_NAME'] . "/img/".$filename
+    "text" => $filemessage
   ];
 	$massage0 = '（画像添付）';
 	$email->setSubject($messageId)
-		  ->setHtml('[category rakuten04][tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag);
+		  ->setHtml('[tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag);
 	$sendgrid->send($email);
 	
 } else if (strpos($text,'購入予定です（') !== false) {
@@ -104,101 +104,24 @@ if($type == "image"){
       ]
     ]
   ];
-} else if (strpos($text,'購入予定です（') !== false) {
+} else if (strpos($text,'で注文済です') !== false) {
   $response_format_text = [
     "type" => "template",
 	"altText" => "購入前",
     "template" => [
       "type" => "buttons",
-      "text" => "納期や在庫確認のご質問以外の場合、その他より楽天ショップのお問い合わせフォームからお問い合わせください。",
+	  "title" => "ショップへ問い合わせ",
+      "text" => "楽天市場店の購入履歴よりお問い合わせください",
       "actions" => [
           [
-            "type" => "message",
-            "label" => "納期について",
-            "text" => $massageshop."の商品の納期を知りたい"
-          ],
-          [
-            "type" => "message",
-            "label" => "在庫の確認",
-            "text" => $massageshop."の商品の在庫を知りたい"
-          ],
-          [
             "type" => "uri",
-            "label" => "その他",
-            "uri" => "https://ask.step.rakuten.co.jp/inquiry-form/?page=simple-inquiry-top&act=login&shop_id=".$massagecat
-          ]
-      ]
-    ]
-  ];
-} else if (strpos($text,'購入済') !== false) {
-  $response_format_text = [
-    "type" => "template",
-    "altText" => "候補を３つご案内しています。",
-    "template" => [
-      "type" => "carousel",
-      "columns" => [
-          [
-            "title" => "●●レストラン",
-            "text" => "こちらにしますか？",
-            "actions" => [
-              [
-                  "type" => "postback",
-                  "label" => "予約する",
-                  "data" => "action=rsv&itemid=111"
-              ],
-              [
-                  "type" => "postback",
-                  "label" => "電話する",
-                  "data" => "action=pcall&itemid=111"
-              ],
-              [
-                  "type" => "uri",
-                  "label" => "詳しく見る（ブラウザ起動）",
-                  "uri" => "https://" . $_SERVER['SERVER_NAME'] . "/"
-              ]
-            ]
+            "label" => "購入履歴",
+            "uri" => "https://order.my.rakuten.co.jp/?fidomy=1"
           ],
           [
-            "title" => "▲▲レストラン",
-            "text" => "それともこちら？（２つ目）",
-            "actions" => [
-              [
-                  "type" => "postback",
-                  "label" => "予約する",
-                  "data" => "action=rsv&itemid=222"
-              ],
-              [
-                  "type" => "postback",
-                  "label" => "電話する",
-                  "data" => "action=pcall&itemid=222"
-              ],
-              [
-                  "type" => "uri",
-                  "label" => "詳しく見る（ブラウザ起動）",
-                  "uri" => "https://" . $_SERVER['SERVER_NAME'] . "/"
-              ]
-            ]
-          ],
-          [
-            "title" => "■■レストラン",
-            "text" => "はたまたこちら？（３つ目）",
-            "actions" => [
-              [
-                  "type" => "postback",
-                  "label" => "予約する",
-                  "data" => "action=rsv&itemid=333"
-              ],
-              [
-                  "type" => "postback",
-                  "label" => "電話する",
-                  "data" => "action=pcall&itemid=333"
-              ],
-              [
-                  "type" => "uri",
-                  "label" => "詳しく見る（ブラウザ起動）",
-                  "uri" => "https://" . $_SERVER['SERVER_NAME'] . "/"
-              ]
-            ]
+            "type" => "message",
+            "label" => "よくある質問",
+            "text" => $massageshop."のよくある質問を見たい"
           ]
       ]
     ]
