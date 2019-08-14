@@ -116,7 +116,7 @@ if($type == "image"){
           [
             "type" => "uri",
             "label" => "購入履歴",
-            "uri" => "https://order.my.rakuten.co.jp/?fidomy=1"
+            "uri" => "https://sp.order.my.rakuten.co.jp/?fidomy=1"
           ],
           [
             "type" => "message",
