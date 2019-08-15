@@ -36,39 +36,26 @@ $email->addTo('hele483cobi@post.wordpress.com')
 if($type != "text" && $type != "image"){
 	exit;
 } else {
-	$response_format_text = [
-  "type": "text", // ①
-  "text": "Select your favorite food category or send me your location!",
-  "quickReply": { // ②
-    "items": [
-      {
-        "type": "action", // ③
-        "imageUrl": "https://example.com/sushi.png",
-        "action": {
-          "type": "message",
-          "label": "Sushi",
-          "text": "Sushi"
-        }
-      },
-      {
-        "type": "action",
-        "imageUrl": "https://example.com/tempura.png",
-        "action": {
-          "type": "message",
-          "label": "Tempura",
-          "text": "Tempura"
-        }
-      },
-      {
-        "type": "action", // ④
-        "action": {
-          "type": "location",
-          "label": "Send location"
-        }
-      }
-    ]
-  }
-  ];
+	'quickReply': {
+        'items': [
+          {
+            'type': 'action',
+            'action': {
+              'type': 'message',
+              'label': 'はい',
+              'text': 'はい'
+            }
+          },
+          {
+            'type': 'action',
+            'action': {
+              'type': 'message',
+              'label': 'ワン',
+              'text': 'ワン'
+            }
+          }
+        ]
+    }
 }
 
 //メッセージから店舗名を取得
