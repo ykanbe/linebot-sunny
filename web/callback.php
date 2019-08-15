@@ -168,7 +168,7 @@ if($type == "image"){
   $email->setSubject($messageId)
         ->setHtml('[category rakuten08][tags '.$userId.']'.$massage2.$massage0.$massageend);
   $sendgrid->send($email);
-} else (strpos($text,'⚠') !== false){
+} else if (strpos($text,'⚠') !== false){
 	exit;
 } else {
   $response_format_text = [
