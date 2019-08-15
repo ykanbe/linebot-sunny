@@ -117,7 +117,7 @@ if($type == "image"){
       "actions" => [
           [
             "type" => "uri",
-            "label" => "購入履歴",
+            "label" => "購入履歴を表示",
             "uri" => "https://sp.order.my.rakuten.co.jp/?fidomy=1"
           ],
           [
@@ -154,7 +154,7 @@ if($type == "image"){
           ],
           [
             "type" => "message",
-            "label" => "支払いについて",
+            "label" => "お支払いについて",
             "text" => $massageshop."の支払い状況を知りたい、または支払い方法を変更したい⚠"
           ],
           [
@@ -165,10 +165,30 @@ if($type == "image"){
           [
             "type" => "message",
             "label" => "領収書が欲しい",
-            "text" => $massageshop."領収書が欲しい⚠"
+            "text" => $massageshop."の領収書が欲しい⚠"
           ]
       ]
     ]
+  ];
+} else if (strpos($text,'返品') !== false) {
+  $response_format_text = [
+    "type" => "text",
+    "text" => "返品についてのご案内です。"
+  ];
+} else if (strpos($text,'交換') !== false) {
+  $response_format_text = [
+    "type" => "text",
+    "text" => "交換についてのご案内です。"
+  ];
+} else if (strpos($text,'キャンセル') !== false) {
+  $response_format_text = [
+    "type" => "text",
+    "text" => "キャンセルについてのご案内です。"
+  ];
+} else if (strpos($text,'納期') !== false) {
+  $response_format_text = [
+    "type" => "text",
+    "text" => "納期についてのご案内です。"
   ];
 } else if (strpos($text,'316908') !== false){
   $massage0 = $text;
