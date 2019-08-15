@@ -110,9 +110,20 @@ if($type == "image"){
 	"altText" => "購入前",
     "template" => [
       "type" => "buttons",
+	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/rakuten01.png",
 	  "title" => "ショップへ問い合わせ",
       "text" => "楽天市場店の購入履歴よりお問い合わせください",
       "actions" => [
+          [
+            "type" => "uri",
+            "label" => "購入履歴",
+            "uri" => "https://sp.order.my.rakuten.co.jp/?fidomy=1"
+          ],
+          [
+            "type" => "uri",
+            "label" => "購入履歴",
+            "uri" => "https://sp.order.my.rakuten.co.jp/?fidomy=1"
+          ],
           [
             "type" => "uri",
             "label" => "購入履歴",
