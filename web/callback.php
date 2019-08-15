@@ -86,7 +86,7 @@ if($type == "image"){
 	$email->setSubject($messageId)
 		  ->setHtml('[tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag);
 	$sendgrid->send($email);
-} else if (strpos($text,'⚠') !== false){
+} else if (strpos($text,'☀') !== false){
   exit;
 } else if (strpos($text,'購入予定です（') !== false) {
   $response_format_text = [
@@ -95,7 +95,7 @@ if($type == "image"){
     "template" => [
       "type" => "buttons",
 	  "title" => "ショップへ問い合わせ",
-      "text" => $massageshop."楽天市場店のお問い合わせフォームが開きます",
+      "text" => $massageshop."楽天市場のお問い合わせフォームが開きます",
       "actions" => [
           [
             "type" => "uri",
@@ -105,7 +105,7 @@ if($type == "image"){
       ]
     ]
   ];
-} else if (strpos($text,'で注文済です') !== false) {
+} else if ((strpos($text,'で注文済です') !== false)||(strpos($text,'の返品・交換・キャンセルをしたい') !== false)||(strpos($text,'の支払い状況を知りたい、または支払い方法を変更したい') !== false)||(strpos($text,'のお届け先変更方法が知りたい') !== false)||(strpos($text,'の領収書が欲しい') !== false)) {
   $response_format_text = [
     "type" => "template",
 	"altText" => "購入前",
@@ -124,12 +124,12 @@ if($type == "image"){
           [
             "type" => "message",
             "label" => "営業時間のご案内",
-            "text" => "営業時間をおしえて⚠"
+            "text" => $massageshop."☀の営業時間をおしえて"
           ],
           [
             "type" => "message",
             "label" => "納期・配送状況について",
-            "text" => "納期・配送状況についておしえて⚠"
+            "text" => $massageshop."☀の納期・配送状況についておしえて"
           ],
           [
             "type" => "message",
@@ -139,6 +139,10 @@ if($type == "image"){
       ]
     ]
   ];
+  $massage0 = $text;
+  $email->setSubject($messageId)
+		->setHtml('[category '.$massagecat.'][tags '.$userId.']'.$massage2.$massage0.$massageend);
+  //$sendgrid->send($email);
 } else if (strpos($text,'のよくある質問を見たい') !== false) {
   $response_format_text = [
     "type" => "template",
@@ -156,41 +160,20 @@ if($type == "image"){
           [
             "type" => "message",
             "label" => "お支払いについて",
-            "text" => $massageshop."の支払い状況を知りたい、または支払い方法を変更したい⚠"
+            "text" => $massageshop."の支払い状況を知りたい、または支払い方法を変更したい"
           ],
           [
             "type" => "message",
             "label" => "お届け先の変更",
-            "text" => $massageshop."のお届け先変更方法が知りたい⚠"
+            "text" => $massageshop."のお届け先変更方法が知りたい"
           ],
           [
             "type" => "message",
             "label" => "領収書が欲しい",
-            "text" => $massageshop."の領収書が欲しい⚠"
+            "text" => $massageshop."の領収書が欲しい"
           ]
       ]
     ]
-  ];
-} else if ((strpos($text,'納期') !== false) || (strpos($text,'配送') !== false) || (strpos($text,'いつ') !== false)) {
-  $response_format_text = [
-	"type" => "template",
-	"altText" => "納期（はい／いいえ）",
-	"template" => [
-	  "type" => "confirm",
-      "text" => "納期についてのご案内をご希望ですか？",
-	  "actions" => [
-		[
-		  "type" => "message",
-		  "label" => "はい",
-		  "text" => "納期について⚠"
-		],
-		[
-		  "type" => "message",
-		  "label" => "いいえ",
-		  "text" => "違います"
-		]
-	  ]
-	]
   ];
 } else if (strpos($text,'316908') !== false){
   $massage0 = $text;
