@@ -35,27 +35,6 @@ $email->addTo('hele483cobi@post.wordpress.com')
 //メッセージ以外のときは何も返さず終了
 if($type != "text" && $type != "image"){
 	exit;
-} else {
-	'quickReply': {
-        'items': [
-          {
-            'type': 'action',
-            'action': {
-              'type': 'message',
-              'label': 'はい',
-              'text': 'はい'
-            }
-          },
-          {
-            'type': 'action',
-            'action': {
-              'type': 'message',
-              'label': 'ワン',
-              'text': 'ワン'
-            }
-          }
-        ]
-    }
 }
 
 //メッセージから店舗名を取得
@@ -190,7 +169,19 @@ if($type == "image"){
         ->setHtml('[category rakuten08][tags '.$userId.']'.$massage2.$massage0.$massageend);
   $sendgrid->send($email);
 } else if (strpos($text,'⚠') !== false){
-	exit;
+  $response_format_text = [
+	"type" => "quickReply",
+	"items" => [
+	  "type" => "actions",
+	  [
+	    "actions" => [
+		  "type" => "message",
+		  "label" => "②でご購入予定",
+		  "text" => "サニープライズで注文済です"
+		]
+	  ]
+	]
+  ];
 } else {
   $response_format_text = [
     "type" => "template",
