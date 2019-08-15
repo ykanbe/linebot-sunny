@@ -36,6 +36,7 @@ $email->addTo('hele483cobi@post.wordpress.com')
 if($type != "text" && $type != "image"){
 	exit;
 } else {
+	$response_format_text = [
   "type": "text", // ①
   "text": "Select your favorite food category or send me your location!",
   "quickReply": { // ②
@@ -67,6 +68,7 @@ if($type != "text" && $type != "image"){
       }
     ]
   }
+  ];
 }
 
 //メッセージから店舗名を取得
