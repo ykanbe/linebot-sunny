@@ -169,19 +169,7 @@ if($type == "image"){
         ->setHtml('[category rakuten08][tags '.$userId.']'.$massage2.$massage0.$massageend);
   $sendgrid->send($email);
 } else if (strpos($text,'⚠') !== false){
-  $response_format_text = [
-	"quickReply" => 
-	"items" => [
-	  "type" => "action",
-	  [
-	    "action" => [
-		  "type" => "message",
-		  "label" => "②でご購入予定",
-		  "text" => "サニープライズで注文済です"
-		]
-	  ]
-	]
-  ];
+  exit;
 } else {
   $response_format_text = [
     "type" => "template",
