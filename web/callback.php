@@ -137,23 +137,23 @@ if($type == "image"){
       "actions" => [
           [
             "type" => "message",
-            "label" => "納期・配送について",
-            "text" => $massageshop."の納期や配送状況を知りたい"
+            "label" => "配送状況を確認したい",
+            "text" => $massageshop."の納期や配送状況を知りたい⚠"
           ],
           [
             "type" => "message",
-            "label" => "返品・交換・キャンセル",
-            "text" => $massageshop."の商品の返品・交換・キャンセルをしたい"
+            "label" => "決済について確認したい",
+            "text" => $massageshop."の商品の返品・交換・キャンセルをしたい⚠"
           ],
           [
             "type" => "message",
-            "label" => "領収書がほしい",
-            "text" => $massageshop."の領収書発行について"
+            "label" => "返品や交換、キャンセルしたい",
+            "text" => $massageshop."の領収書発行について⚠"
           ],
           [
             "type" => "message",
-            "label" => "支払方法や住所の変更",
-            "text" => $massageshop."支払方法や住所の変更がしたい"
+            "label" => "その他",
+            "text" => $massageshop."その他よくある質問⚠"
           ]
       ]
     ]
@@ -168,6 +168,8 @@ if($type == "image"){
   $email->setSubject($messageId)
         ->setHtml('[category rakuten08][tags '.$userId.']'.$massage2.$massage0.$massageend);
   $sendgrid->send($email);
+} else (strpos($text,'⚠') !== false){
+	exit;
 } else {
   $response_format_text = [
     "type" => "template",
