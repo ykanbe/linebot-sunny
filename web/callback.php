@@ -173,7 +173,7 @@ if($type == "image"){
       ]
     ]
   ];
-} else if (str_replace($word_list1, $word_list1, $text, $count) !== false) {
+} else if (str_replace($word_list1, $word_list1, $text, $count)) {
   $response_format_text = [
 	"type" => "template",
 	"altText" => "返品交換（はい／いいえ）",
