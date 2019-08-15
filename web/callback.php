@@ -24,7 +24,8 @@ $massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_posi
 $massageend = '[/word_balloon]';
 $massageshop = '';
 $massagecat = '';
-$word_list1 = array("返品","交換","キャンセル"); // 単語リスト
+$word_list1 = array('返品','交換','キャンセル','不備','足りない','壊れ');
+$word_list2 = array('納期','いつ','届く','届かない','まだ','早く','早め','急いで','いそいで','来ない');
 
 //Sendgrid-1
 require __DIR__ . '/../vendor/autoload.php';
@@ -87,7 +88,8 @@ if($type == "image"){
 	$email->setSubject($messageId)
 		  ->setHtml('[tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag);
 	$sendgrid->send($email);
-	
+} else if (strpos($text,'⚠') !== false){
+  exit;
 } else if (strpos($text,'購入予定です（') !== false) {
   $response_format_text = [
     "type" => "template",
@@ -151,7 +153,7 @@ if($type == "image"){
           [
             "type" => "message",
             "label" => "返品・交換・キャンセル",
-            "text" => $massageshop."の返品・交換・キャンセルをしたい⚠"
+            "text" => $massageshop."の返品・交換・キャンセルをしたい"
           ],
           [
             "type" => "message",
@@ -173,36 +175,37 @@ if($type == "image"){
   ];
 } else if (str_replace($word_list1, $word_list1, $text, $count) !== false) {
   $response_format_text = [
-    "type" => "text",
-    "text" => "返品その他についてのご案内です。"
-  ];
-} else if (strpos($text,'交換') !== false) {
-  $response_format_text = [
-    "type" => "text",
-    "text" => "交換についてのご案内です。"
-  ];
-} else if (strpos($text,'キャンセル') !== false) {
-  $response_format_text = [
-    "type" => "text",
-    "text" => "キャンセルについてのご案内です。"
-  ];
-} else if (strpos($text,'納期') !== false) {
-  $response_format_text = [
-    "type" => "text",
-    "text" => "納期についてのご案内です。"
-  ];
-} else if (strpos($text,'いつ') !== false) {
-  $response_format_text = [
 	"type" => "template",
-	"altText" => "いつ（はい／いいえ）",
+	"altText" => "返品交換（はい／いいえ）",
 	"template" => [
 	  "type" => "confirm",
-      "text" => "納期についてのご案内でしょうか？",
+      "text" => "返品や交換、またはご注文のキャンセルのご案内をご希望ですか？",
 	  "actions" => [
 		[
 		  "type" => "message",
 		  "label" => "はい",
-		  "text" => "納期について"
+		  "text" => "返品・交換について⚠"
+		],
+		[
+		  "type" => "message",
+		  "label" => "いいえ",
+		  "text" => "違います"
+		]
+	  ]
+	]
+  ];
+} else if (str_replace($word_list2, $word_list2, $text, $count) !== false) {
+  $response_format_text = [
+	"type" => "template",
+	"altText" => "納期（はい／いいえ）",
+	"template" => [
+	  "type" => "confirm",
+      "text" => "納期についてのご案内をご希望ですか？",
+	  "actions" => [
+		[
+		  "type" => "message",
+		  "label" => "はい",
+		  "text" => "納期について⚠"
 		],
 		[
 		  "type" => "message",
@@ -222,8 +225,6 @@ if($type == "image"){
   $email->setSubject($messageId)
         ->setHtml('[category rakuten08][tags '.$userId.']'.$massage2.$massage0.$massageend);
   $sendgrid->send($email);
-} else if (strpos($text,'⚠') !== false){
-  exit;
 } else {
   $response_format_text = [
     "type" => "template",
