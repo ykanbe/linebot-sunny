@@ -111,6 +111,7 @@ if($type == "image"){
     "template" => [
       "type" => "buttons",
 	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img/rakuten01.png",
+	  "imageAspectRatio" => "square",
 	  "title" => "ショップへ問い合わせ",
       "text" => "楽天市場店の購入履歴よりお問い合わせください",
       "actions" => [
