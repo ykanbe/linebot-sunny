@@ -121,18 +121,18 @@ if($type == "image"){
             "uri" => "https://sp.order.my.rakuten.co.jp/?fidomy=1"
           ],
           [
-            "type" => "uri",
-            "label" => "購入履歴",
-            "uri" => "https://sp.order.my.rakuten.co.jp/?fidomy=1"
-          ],
-          [
-            "type" => "uri",
-            "label" => "購入履歴",
-            "uri" => "https://sp.order.my.rakuten.co.jp/?fidomy=1"
+            "type" => "message",
+            "label" => "営業時間のご案内",
+            "text" => "営業時間をおしえて⚠"
           ],
           [
             "type" => "message",
-            "label" => "よくある質問",
+            "label" => "納期・配送状況について",
+            "text" => "納期・配送状況についておしえて⚠"
+          ],
+          [
+            "type" => "message",
+            "label" => "その他よくある質問",
             "text" => $massageshop."のよくある質問を見たい"
           ]
       ]
@@ -149,23 +149,23 @@ if($type == "image"){
       "actions" => [
           [
             "type" => "message",
-            "label" => "配送状況を確認したい",
-            "text" => $massageshop."の納期や配送状況を知りたい⚠"
+            "label" => "返品・交換・キャンセル",
+            "text" => $massageshop."の返品・交換・キャンセルをしたい⚠"
           ],
           [
             "type" => "message",
-            "label" => "決済について確認したい",
-            "text" => $massageshop."の商品の返品・交換・キャンセルをしたい⚠"
+            "label" => "支払いについて",
+            "text" => $massageshop."の支払い状況を知りたい、または支払い方法を変更したい⚠"
           ],
           [
             "type" => "message",
-            "label" => "返品や交換、キャンセルしたい",
-            "text" => $massageshop."の領収書発行について⚠"
+            "label" => "お届け先の変更",
+            "text" => $massageshop."のお届け先変更方法が知りたい⚠"
           ],
           [
             "type" => "message",
-            "label" => "その他",
-            "text" => $massageshop."その他よくある質問⚠"
+            "label" => "領収書が欲しい",
+            "text" => $massageshop."領収書が欲しい⚠"
           ]
       ]
     ]
