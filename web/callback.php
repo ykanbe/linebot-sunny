@@ -110,7 +110,7 @@ if($type == "image"){
 	"altText" => "購入前",
     "template" => [
       "type" => "buttons",
-	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/rakuten01.png",
+	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img/rakuten01.png",
 	  "title" => "ショップへ問い合わせ",
       "text" => "楽天市場店の購入履歴よりお問い合わせください",
       "actions" => [
