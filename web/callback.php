@@ -170,11 +170,11 @@ if($type == "image"){
   $sendgrid->send($email);
 } else if (strpos($text,'⚠') !== false){
   $response_format_text = [
-	"type" => "quickReply",
+	"quickReply" => 
 	"items" => [
-	  "type" => "actions",
+	  "type" => "action",
 	  [
-	    "actions" => [
+	    "action" => [
 		  "type" => "message",
 		  "label" => "②でご購入予定",
 		  "text" => "サニープライズで注文済です"
