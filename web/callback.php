@@ -24,8 +24,8 @@ $massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_posi
 $massageend = '[/word_balloon]';
 $massageshop = '';
 $massagecat = '';
-$word_list1 = array('返品','交換','キャンセル','不備','足りない','壊れ');
-$word_list2 = array('納期','いつ','届く','届かない','まだ','早く','早め','急いで','いそいで','来ない');
+$word_list1 = array("返品","交換","キャンセル","不備","足りない","壊れ");
+$word_list2 = array("納期","いつ","届く","届かない","まだ","早く","早め","急いで","いそいで","来ない");
 
 //Sendgrid-1
 require __DIR__ . '/../vendor/autoload.php';
