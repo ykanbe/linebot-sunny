@@ -171,7 +171,7 @@ if($type == "image"){
       ]
     ]
   ];
-} else if (strpos($text,'納期') !== false) || (strpos($text,'配送') !== false) || (strpos($text,'いつ') !== false) {
+} else if ((strpos($text,'納期') !== false) || (strpos($text,'配送') !== false) || (strpos($text,'いつ') !== false)) {
   $response_format_text = [
 	"type" => "template",
 	"altText" => "納期（はい／いいえ）",
