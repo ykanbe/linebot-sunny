@@ -173,27 +173,6 @@ if($type == "image"){
       ]
     ]
   ];
-} else if (str_replace($word_list1, $word_list1, $text, $count)) {
-  $response_format_text = [
-	"type" => "template",
-	"altText" => "返品交換（はい／いいえ）",
-	"template" => [
-	  "type" => "confirm",
-      "text" => "返品や交換、またはご注文のキャンセルのご案内をご希望ですか？",
-	  "actions" => [
-		[
-		  "type" => "message",
-		  "label" => "はい",
-		  "text" => "返品・交換について⚠"
-		],
-		[
-		  "type" => "message",
-		  "label" => "いいえ",
-		  "text" => "違います"
-		]
-	  ]
-	]
-  ];
 } else if (str_replace($word_list2, $word_list2, $text, $count) !== false) {
   $response_format_text = [
 	"type" => "template",
