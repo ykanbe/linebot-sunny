@@ -24,8 +24,6 @@ $massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_posi
 $massageend = '[/word_balloon]';
 $massageshop = '';
 $massagecat = '';
-$word_list1 = array("返品","交換","キャンセル","壊れ");
-$word_list2 = array("納期","配送","いつ","まだ","早く");
 
 //Sendgrid-1
 require __DIR__ . '/../vendor/autoload.php';
@@ -173,7 +171,7 @@ if($type == "image"){
       ]
     ]
   ];
-} else if (str_replace($word_list2, $word_list2, $text, $count) !== false) {
+} else if (strpos($text,'納期') !== false) || (strpos($text,'配送') !== false) || (strpos($text,'いつ') !== false) {
   $response_format_text = [
 	"type" => "template",
 	"altText" => "納期（はい／いいえ）",
