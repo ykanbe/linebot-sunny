@@ -190,6 +190,27 @@ if($type == "image"){
     "type" => "text",
     "text" => "納期についてのご案内です。"
   ];
+} else if (strpos($text,'いつ') !== false) {
+  $response_format_text = [
+	"type" => "template",
+	"altText" => "いつ（はい／いいえ）",
+	"template" => [
+	  "type" => "confirm",
+      "text" => "納期についてのご案内でしょうか？",
+	  "actions" => [
+		[
+		  "type" => "message",
+		  "label" => "はい",
+		  "text" => "納期について"
+		],
+		[
+		  "type" => "message",
+		  "label" => "いいえ",
+		  "text" => "違います"
+		]
+	  ]
+	]
+  ];
 } else if (strpos($text,'316908') !== false){
   $massage0 = $text;
   $email->setSubject($messageId)
