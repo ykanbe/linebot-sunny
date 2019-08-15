@@ -24,6 +24,7 @@ $massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_posi
 $massageend = '[/word_balloon]';
 $massageshop = '';
 $massagecat = '';
+$word_list1 = array("返品","交換","キャンセル"); // 単語リスト
 
 //Sendgrid-1
 require __DIR__ . '/../vendor/autoload.php';
@@ -170,10 +171,10 @@ if($type == "image"){
       ]
     ]
   ];
-} else if (strpos($text,'返品') !== false) {
+} else if (str_replace($word_list1, $word_list1, $text, $count) !== false) {
   $response_format_text = [
     "type" => "text",
-    "text" => "返品についてのご案内です。"
+    "text" => "返品その他についてのご案内です。"
   ];
 } else if (strpos($text,'交換') !== false) {
   $response_format_text = [
