@@ -143,7 +143,7 @@ if($type == "image"){
   $email->setSubject('['.$massagecat.']'.$messageId)
 		->setHtml('tags: '.$userId.'<br>'.$massage2.$massage0.$massageend);
   $sendgrid->send($email);
-} else if ((strpos($text,'の返品・交換・キャンセルをしたい') !== false)||(strpos($text,'のお支払いについて') !== false)||(strpos($text,'のお届け先変更方法が知りたい') !== false)||(strpos($text,'の領収書が欲しい') !== false)) {
+} else if ((strpos($text,'の返品・交換・キャンセルをしたい') !== false)||(strpos($text,'のお支払いについて') !== false)||(strpos($text,'のお届け先変更方法が知りたい') !== false)||(strpos($text,'の領収書が欲しい') !== false)||(strpos($text,'の納期・配送状況についておしえて') !== false)) {
   $massageurl = 'sunnyprize';
   if($massagecat == '316906'){
 	  $massageurl = 'happysunny';
@@ -171,11 +171,6 @@ if($type == "image"){
       ]
     ]
   ];
-  $massage0 = $text;
-  $email->setSubject('['.$massagecat.']'.$messageId)
-		->setHtml('tags: '.$userId.'<br>'.$massage2.$massage0.$massageend);
-  $sendgrid->send($email);
-} else if (strpos($text,'の納期・配送状況についておしえて') !== false){
   $massage0 = $text;
   $email->setSubject('['.$massagecat.']'.$messageId)
 		->setHtml('tags: '.$userId.'<br>'.$massage2.$massage0.$massageend);
