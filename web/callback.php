@@ -108,7 +108,7 @@ if($type == "image"){
 } else if (strpos($text,'で注文済です') !== false) {
   $response_format_text = [
     "type" => "template",
-	"altText" => "購入前",
+	"altText" => "注文済",
     "template" => [
       "type" => "buttons",
 	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img/rakuten01.png",
@@ -143,7 +143,7 @@ if($type == "image"){
   $email->setSubject($messageId)
 		->setHtml('[category '.$massagecat.'][tags '.$userId.']'.$massage2.$massage0.$massageend);
   //$sendgrid->send($email);
-} else if ((strpos($text,'の返品・交換・キャンセルをしたい') !== false)||(strpos($text,'の支払い状況を知りたい、または支払い方法を変更したい') !== false)||(strpos($text,'のお届け先変更方法が知りたい') !== false)||(strpos($text,'の領収書が欲しい') !== false)) {
+} else if ((strpos($text,'の返品・交換・キャンセルをしたい') !== false)||(strpos($text,'のお支払いについて') !== false)||(strpos($text,'のお届け先変更方法が知りたい') !== false)||(strpos($text,'の領収書が欲しい') !== false)) {
   $massageurl = 'sunnyprize';
   if($massagecat == '316906'){
 	  $massageurl = 'happysunny';
@@ -192,7 +192,7 @@ if($type == "image"){
           [
             "type" => "message",
             "label" => "お支払いについて",
-            "text" => $massageshop."の支払い状況を知りたい、または支払い方法を変更したい"
+            "text" => $massageshop."のお支払いについて"
           ],
           [
             "type" => "message",
