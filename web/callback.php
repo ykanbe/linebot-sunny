@@ -145,7 +145,7 @@ if($type == "image"){
   //$sendgrid->send($email);
 } else if (strpos($text,'の営業時間をおしえて') !== false){
   $infourl = 'https://www.rakuten.co.jp/sunnyprize/info.html';
-  if($massagecat = '316906'){
+  if($massagecat == '316906'){
 	  $infourl = 'https://www.rakuten.co.jp/happysunny/info.html';
   }
   $response_format_text = [
