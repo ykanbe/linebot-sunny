@@ -84,7 +84,7 @@ if($type == "image"){
   ];
 	$massage0 = '（画像添付）';
 	$email->setSubject($messageId)
-		  ->setHtml('tags: '.$userId.'<br>'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag)
+		  ->setHtml('tags: '.$userId.'<br>'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag);
 	$sendgrid->send($email);
 } else if (strpos($text,'☀') !== false){
   exit;
