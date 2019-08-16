@@ -155,18 +155,13 @@ if($type == "image"){
       "type" => "buttons",
 	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img/rakuten01.png",
 	  "imageAspectRatio" => "square",
-	  "title" => "購入履歴",
-      "text" => "当ショップの会社概要、返品・交換ポリシーなどはこちらからご覧ください",
+	  "title" => "ショップ情報",
+      "text" => "返品・交換ポリシーについては、当ショップ会社概要にございます記載をご一読ください。",
       "actions" => [
           [
             "type" => "uri",
             "label" => "購入履歴を表示",
             "uri" => "https://sp.order.my.rakuten.co.jp/?fidomy=1"
-          ],
-          [
-            "type" => "uri",
-            "label" => "会社概要",
-            "uri" => "https://www.rakuten.co.jp/".$massageurl."/info.html"
           ],
           [
             "type" => "uri",
