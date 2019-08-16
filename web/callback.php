@@ -156,7 +156,7 @@ if($type == "image"){
 	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img/rakuten01.png",
 	  "imageAspectRatio" => "square",
 	  "title" => "ショップ情報",
-      "text" => "返品・交換ポリシーについては、当ショップ会社概要にございます記載をご一読ください。",
+      "text" => "返品・交換やお届け先の変更、領収書の発行につきましてはこちらからご連絡ください。",
       "actions" => [
           [
             "type" => "uri",
