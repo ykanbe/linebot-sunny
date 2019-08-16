@@ -29,7 +29,6 @@ $massagecat = '';
 require __DIR__ . '/../vendor/autoload.php';
 $sendgrid = new SendGrid(getenv('SENDGRID_USERNAME'), getenv('SENDGRID_PASSWORD'));
 $email    = new SendGrid\Email();
-//$email->addTo('hele483cobi@post.wordpress.com')
 $email->addTo('wpbot@azo.jp')
 	  ->setFrom('linebot@azo.jp');
 
@@ -85,9 +84,7 @@ if($type == "image"){
   ];
 	$massage0 = '（画像添付）';
 	$email->setSubject($messageId)
-		  ->setHtml('[tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag)
-		  ->addAttachment($filePath,$filename);
-		  //->addAttachment($attachment[$filePath], $attachment[$filename]);
+		  ->setHtml('tags: '.$userId.'<br>'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag)
 	$sendgrid->send($email);
 } else if (strpos($text,'☀') !== false){
   exit;
@@ -143,9 +140,9 @@ if($type == "image"){
     ]
   ];
   $massage0 = $text;
-  $email->setSubject($messageId)
-		->setHtml('[category '.$massagecat.'][tags '.$userId.']'.$massage2.$massage0.$massageend);
-  //$sendgrid->send($email);
+  $email->setSubject('['.$massagecat.']'.$messageId)
+		->setHtml('tags: '.$userId.'<br>'.$massage2.$massage0.$massageend);
+  $sendgrid->send($email);
 } else if ((strpos($text,'の返品・交換・キャンセルをしたい') !== false)||(strpos($text,'のお支払いについて') !== false)||(strpos($text,'のお届け先変更方法が知りたい') !== false)||(strpos($text,'の領収書が欲しい') !== false)) {
   $massageurl = 'sunnyprize';
   if($massagecat == '316906'){
@@ -175,13 +172,13 @@ if($type == "image"){
     ]
   ];
   $massage0 = $text;
-  $email->setSubject($messageId)
-		->setHtml('[category '.$massagecat.'][tags '.$userId.']'.$massage2.$massage0.$massageend);
+  $email->setSubject('['.$massagecat.']'.$messageId)
+		->setHtml('tags: '.$userId.'<br>'.$massage2.$massage0.$massageend);
   $sendgrid->send($email);
 } else if (strpos($text,'の納期・配送状況についておしえて') !== false){
   $massage0 = $text;
-  $email->setSubject($messageId)
-		->setHtml('[category '.$massagecat.'][tags '.$userId.']'.$massage2.$massage0.$massageend);
+  $email->setSubject('['.$massagecat.']'.$messageId)
+		->setHtml('tags: '.$userId.'<br>'.$massage2.$massage0.$massageend);
   $sendgrid->send($email);
 } else if (strpos($text,'のよくある質問を見たい') !== false) {
   $response_format_text = [
@@ -250,7 +247,7 @@ if($type == "image"){
   //メール送信（納期、変更、）
   $massage0 = $text;
   $email->setSubject($messageId)
-		->setHtml('[tags '.$userId.']'.$massage2.$massage0.$massageend);
+		->setHtml('tags: '.$userId.'<br>'.$massage2.$massage0.$massageend);
   $sendgrid->send($email);
   }
 }
