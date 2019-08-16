@@ -213,7 +213,7 @@ if($type == "image"){
 	"altText" => "default",
     "template" => [
         "type" => "buttons",
-        "text" => "このアカウントは自動応答のみでのご対応になります。\nご質問がある場合、ご利用店舗とお客様の情報を選択してください。\n①サニープライズ\n②ハッピーサニーショップ",
+        "text" => "このアカウントは自動応答のみでのご対応になります。\nご質問がある場合、ご利用店舗とお客様の情報を選択してください。\n①サニープライズ\n②ハッピーサニーショップ\n\nご購入店舗がわからない場合［①でご注文済］を選択してください",
         "actions" => [
             [
               "type" => "message",
@@ -239,7 +239,7 @@ if($type == "image"){
     ]
   ];
   if ((strpos($text,'納期') !== false)||(strpos($text,'変更') !== false)){
-  //メール送信（納期、変更、）
+  //メール送信（納期、変更、住所）
   $massage0 = $text;
   $email->setSubject($messageId)
 		->setHtml('tags: '.$userId.'<br>'.$massage2.$massage0.$massageend);
