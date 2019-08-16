@@ -29,7 +29,8 @@ $massagecat = '';
 require __DIR__ . '/../vendor/autoload.php';
 $sendgrid = new SendGrid(getenv('SENDGRID_USERNAME'), getenv('SENDGRID_PASSWORD'));
 $email    = new SendGrid\Email();
-$email->addTo('hele483cobi@post.wordpress.com')
+//$email->addTo('hele483cobi@post.wordpress.com')
+$email->addTo('wpbot@azo.jp')
 	  ->setFrom('linebot@azo.jp');
 
 //メッセージ以外のときは何も返さず終了
