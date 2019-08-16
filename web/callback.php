@@ -124,7 +124,7 @@ if($type == "image"){
           [
             "type" => "message",
             "label" => "営業時間のご案内",
-            "text" => $massageshop."☀の営業時間をおしえて"
+            "text" => $massageshop."の営業時間をおしえて"
           ],
           [
             "type" => "message",
@@ -143,6 +143,15 @@ if($type == "image"){
   $email->setSubject($messageId)
 		->setHtml('[category '.$massagecat.'][tags '.$userId.']'.$massage2.$massage0.$massageend);
   //$sendgrid->send($email);
+} else if (strpos($text,'の営業時間をおしえて') !== false){
+  $infourl = 'https://www.rakuten.co.jp/sunnyprize/info.html';
+  if($massagecat = '316906'){
+	  $infourl = 'https://www.rakuten.co.jp/happysunny/info.html';
+  }
+  $response_format_text = [
+    "type" => "text",
+    "text" => $infourl
+  ];
 } else if (strpos($text,'のよくある質問を見たい') !== false) {
   $response_format_text = [
     "type" => "template",
