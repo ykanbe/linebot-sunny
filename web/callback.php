@@ -249,6 +249,7 @@ if($type == "image"){
   $email->setSubject($messageId)
 		->setHtml('[tags '.$userId.']'.$massage2.$massage0.$massageend);
   $sendgrid->send($email);
+  }
 }
 
 $post_data = [
