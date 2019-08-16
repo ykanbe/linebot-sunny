@@ -129,7 +129,7 @@ if($type == "image"){
           [
             "type" => "message",
             "label" => "納期・配送状況について",
-            "text" => $massageshop."☀の納期・配送状況についておしえて"
+            "text" => $massageshop."の納期・配送状況についておしえて"
           ],
           [
             "type" => "message",
@@ -174,7 +174,12 @@ if($type == "image"){
   $massage0 = $text;
   $email->setSubject($messageId)
 		->setHtml('[category '.$massagecat.'][tags '.$userId.']'.$massage2.$massage0.$massageend);
-  //$sendgrid->send($email);
+  $sendgrid->send($email);
+} else if (strpos($text,'の納期・配送状況についておしえて') !== false){
+  $massage0 = $text;
+  $email->setSubject($messageId)
+		->setHtml('[category '.$massagecat.'][tags '.$userId.']'.$massage2.$massage0.$massageend);
+  $sendgrid->send($email);
 } else if (strpos($text,'のよくある質問を見たい') !== false) {
   $response_format_text = [
     "type" => "template",
@@ -207,16 +212,6 @@ if($type == "image"){
       ]
     ]
   ];
-} else if (strpos($text,'316908') !== false){
-  $massage0 = $text;
-  $email->setSubject($messageId)
-        ->setHtml('[category rakuten07][tags '.$userId.']'.$massage2.$massage0.$massageend);
-  $sendgrid->send($email);
-} else if (strpos($text,'316906') !== false){
-  $massage0 = $text;
-  $email->setSubject($messageId)
-        ->setHtml('[category rakuten08][tags '.$userId.']'.$massage2.$massage0.$massageend);
-  $sendgrid->send($email);
 } else {
   $response_format_text = [
     "type" => "template",
@@ -248,6 +243,12 @@ if($type == "image"){
         ]
     ]
   ];
+  if ((strpos($text,'納期') !== false)||(strpos($text,'変更') !== false)){
+  //メール送信（納期、変更、）
+  $massage0 = $text;
+  $email->setSubject($messageId)
+		->setHtml('[tags '.$userId.']'.$massage2.$massage0.$massageend);
+  $sendgrid->send($email);
 }
 
 $post_data = [
