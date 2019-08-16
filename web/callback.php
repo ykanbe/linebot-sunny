@@ -84,9 +84,9 @@ if($type == "image"){
     "text" => $filemessage
   ];
 	$massage0 = '（画像添付）';
-	$email->addAttachment(new SendGrid\Email\Attachment(base64_encode(file_get_contents($filePath)), "image/jpeg", $filename));
 	$email->setSubject($messageId)
-		  ->setHtml('[tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag);
+		  ->setHtml('[tags '.$userId.']'.$massage1.$filemessage.$massageend.$massage2.$massage0.$massageend.$imagetag)
+		  ->addAttachment(new SendGrid\Email\Attachment(base64_encode(file_get_contents($filePath)), "image/jpeg", $filename));
 	$sendgrid->send($email);
 } else if (strpos($text,'☀') !== false){
   exit;
