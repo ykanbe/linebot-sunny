@@ -105,7 +105,7 @@ if($type == "image"){
       ]
     ]
   ];
-} else if ((strpos($text,'で注文済です') !== false)||(strpos($text,'の返品・交換・キャンセルをしたい') !== false)||(strpos($text,'の支払い状況を知りたい、または支払い方法を変更したい') !== false)||(strpos($text,'のお届け先変更方法が知りたい') !== false)||(strpos($text,'の領収書が欲しい') !== false)) {
+} else if (strpos($text,'で注文済です') !== false) {
   $response_format_text = [
     "type" => "template",
 	"altText" => "購入前",
@@ -135,6 +135,43 @@ if($type == "image"){
             "type" => "message",
             "label" => "その他よくある質問",
             "text" => $massageshop."のよくある質問を見たい"
+          ]
+      ]
+    ]
+  ];
+  $massage0 = $text;
+  $email->setSubject($messageId)
+		->setHtml('[category '.$massagecat.'][tags '.$userId.']'.$massage2.$massage0.$massageend);
+  //$sendgrid->send($email);
+} else if ((strpos($text,'の返品・交換・キャンセルをしたい') !== false)||(strpos($text,'の支払い状況を知りたい、または支払い方法を変更したい') !== false)||(strpos($text,'のお届け先変更方法が知りたい') !== false)||(strpos($text,'の領収書が欲しい') !== false)) {
+  $massageurl = 'sunnyprize';
+  if($massagecat == '316906'){
+	  $massageurl = 'happysunny';
+  }
+  $response_format_text = [
+    "type" => "template",
+	"altText" => "購入履歴",
+    "template" => [
+      "type" => "buttons",
+	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img/rakuten01.png",
+	  "imageAspectRatio" => "square",
+	  "title" => "購入履歴",
+      "text" => "当ショップの会社概要、返品・交換ポリシーなどはこちらからご覧ください",
+      "actions" => [
+          [
+            "type" => "uri",
+            "label" => "購入履歴を表示",
+            "uri" => "https://sp.order.my.rakuten.co.jp/?fidomy=1"
+          ],
+          [
+            "type" => "uri",
+            "label" => "会社概要",
+            "uri" => "https://www.rakuten.co.jp/".$massageurl."/info.html"
+          ],
+          [
+            "type" => "uri",
+            "label" => "返品・交換ポリシー",
+            "uri" => "https://www.rakuten.co.jp/".$massageurl."/info.html#companyBrokenExchange_sp"
           ]
       ]
     ]
