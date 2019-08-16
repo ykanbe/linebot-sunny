@@ -94,7 +94,7 @@ if($type == "image"){
 	"altText" => "購入前",
     "template" => [
       "type" => "buttons",
-	  "title" => "ショップへ問い合わせ",
+	  "title" => "お問い合わせフォーム",
       "text" => $massageshop."楽天市場のお問い合わせフォームが開きます",
       "actions" => [
           [
@@ -113,8 +113,8 @@ if($type == "image"){
       "type" => "buttons",
 	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img/rakuten01.png",
 	  "imageAspectRatio" => "square",
-	  "title" => "ショップへ問い合わせ",
-      "text" => "楽天市場店の購入履歴よりお問い合わせください",
+	  "title" => "ショップへ問い合わせる",
+      "text" => "［購入履歴を表示］よりお問い合わせください",
       "actions" => [
           [
             "type" => "uri",
