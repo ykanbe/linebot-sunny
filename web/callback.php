@@ -240,8 +240,22 @@ if($type == "image"){
     ]
   ];
   $etc_messages = [
-    "type" => "text",
-    "text" => 'テストメッセージ'
+    "type" => "template",
+	"altText" => "購入履歴",
+    "template" => [
+      "type" => "buttons",
+	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img/rakuten01.png",
+	  "imageAspectRatio" => "square",
+	  "title" => "購入履歴を表示",
+      "text" => "ご購入店舗がご不明な場合、こちらから購入履歴ページの閲覧と、お問い合わせが可能です。",
+      "actions" => [
+          [
+            "type" => "uri",
+            "label" => "購入履歴を表示",
+            "uri" => "https://sp.order.my.rakuten.co.jp/?fidomy=1"
+          ]
+      ]
+    ]
   ];
   if ((strpos($text,'納期') !== false)||(strpos($text,'変更') !== false)){
   //メール送信（納期、変更、住所）
