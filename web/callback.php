@@ -254,7 +254,7 @@ if($type == "image"){
 if (!empty($etc_messages)) {
 	$post_data = [
 		"replyToken" => $replyToken,
-		"messages" => [[$response_format_text],[$etc_messages],]
+		"messages" => [$response_format_text,$etc_messages,]
 	];
 } else {
 	$post_data = [
