@@ -24,6 +24,7 @@ $massage2 = '[word_balloon id="1" position="L" size="S" balloon="talk" name_posi
 $massageend = '[/word_balloon]';
 $massageshop = '';
 $massagecat = '';
+$etc_messages = '';
 
 //Sendgrid-1
 require __DIR__ . '/../vendor/autoload.php';
@@ -213,7 +214,7 @@ if($type == "image"){
 	"altText" => "default",
     "template" => [
         "type" => "buttons",
-        "text" => "このアカウントは自動応答のみでのご対応になります。\nはじめにご利用店舗とご利用状況をご選択ください。\n①サニープライズ\n②ハッピーサニーショップ\n不明→①でご注文済を選択",
+        "text" => "このアカウントは自動応答のみでのご対応になります。\nはじめにご利用店舗とご利用状況をご選択ください。\n①サニープライズ\n②ハッピーサニーショップ",
         "actions" => [
             [
               "type" => "message",
@@ -238,6 +239,24 @@ if($type == "image"){
         ]
     ]
   ];
+  $etc_messages = [
+    "type" => "template",
+	"altText" => "購入履歴",
+    "template" => [
+      "type" => "buttons",
+	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img/rakuten01.png",
+	  "imageAspectRatio" => "square",
+	  "title" => "購入履歴を表示",
+      "text" => "ご購入店舗がご不明な場合、こちらから購入履歴ページの閲覧と、お問い合わせが可能です。",
+      "actions" => [
+          [
+            "type" => "uri",
+            "label" => "購入履歴を表示",
+            "uri" => "https://sp.order.my.rakuten.co.jp/?fidomy=1"
+          ]
+      ]
+    ]
+  ];
   if ((strpos($text,'納期') !== false)||(strpos($text,'変更') !== false)){
   //メール送信（納期、変更、住所）
   $massage0 = $text;
@@ -246,11 +265,17 @@ if($type == "image"){
   $sendgrid->send($email);
   }
 }
-
-$post_data = [
-	"replyToken" => $replyToken,
-	"messages" => [$response_format_text]
+if ($etc_messages != '') {
+	$post_data = [
+		"replyToken" => $replyToken,
+		"messages" => [[$response_format_text],[$etc_messages]]
 	];
+} else {
+	$post_data = [
+		"replyToken" => $replyToken,
+		"messages" => [$response_format_text]
+	];
+}
 
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
