@@ -265,7 +265,7 @@ if($type == "image"){
   $sendgrid->send($email);
   }
 }
-if (empty($etc_messages)) {
+if (!empty($etc_messages)) {
 	$post_data = [
 		"replyToken" => $replyToken,
 		"messages" => [[$response_format_text],[$etc_messages],]
