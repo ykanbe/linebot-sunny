@@ -124,13 +124,13 @@ if($type == "image"){
           ],
           [
             "type" => "message",
-            "label" => "営業時間のご案内",
-            "text" => $massageshop."☀の営業時間をおしえて"
+            "label" => "納期・配送状況について",
+            "text" => $massageshop."の納期・配送状況についておしえて"
           ],
           [
             "type" => "message",
-            "label" => "納期・配送状況について",
-            "text" => $massageshop."の納期・配送状況についておしえて"
+            "label" => "返品・交換・キャンセル",
+            "text" => $massageshop."の返品・交換・キャンセルをしたい"
           ],
           [
             "type" => "message",
@@ -210,8 +210,8 @@ if($type == "image"){
       "actions" => [
           [
             "type" => "message",
-            "label" => "返品・交換・キャンセル",
-            "text" => $massageshop."の返品・交換・キャンセルをしたい"
+            "label" => "営業時間のご案内",
+            "text" => $massageshop."☀の営業時間をおしえて"
           ],
           [
             "type" => "message",
