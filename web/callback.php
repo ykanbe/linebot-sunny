@@ -66,13 +66,13 @@ if($type == "image"){
   if ($fp){
       if (flock($fp, LOCK_EX)){
           if (fwrite($fp,  $result ) === FALSE){
-              $filemessage = '画像の受け取りに失敗しました';
+              $filemessage = '（自動応答）画像の受け取りに失敗しました';
           }else{
-              $filemessage = '画像を受け取りました！';
+              $filemessage = '（自動応答）画像を受け取りました！';
           }
           flock($fp, LOCK_UN);
       }else{
-          $filemessage = '画像の受け取りに失敗しました';
+          $filemessage = '（自動応答）画像の受け取りに失敗しました';
       }
   }
   fclose($fp);
@@ -180,7 +180,7 @@ if($type == "image"){
 	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img/rakuten01.png",
 	  "imageAspectRatio" => "square",
 	  "title" => "ショップ情報",
-      "text" => "返品・交換やお届け先の変更、領収書の発行につきましてはこちらからご連絡ください。",
+      "text" => "返品・交換・キャンセルにつきましては、こちらからご連絡ください。",
       "actions" => [
           [
             "type" => "uri",
