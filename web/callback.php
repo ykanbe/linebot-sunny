@@ -244,8 +244,6 @@ if($type == "image"){
 	"altText" => "購入履歴",
     "template" => [
       "type" => "buttons",
-	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img/rakuten01.png",
-	  "imageAspectRatio" => "square",
 	  "title" => "購入履歴を表示",
       "text" => "ご購入店舗がご不明な場合、こちらから購入履歴ページの閲覧と、お問い合わせが可能です。",
       "actions" => [
