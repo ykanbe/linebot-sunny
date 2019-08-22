@@ -237,6 +237,7 @@ if($type == "image"){
 	"altText" => "default",
     "template" => [
         "type" => "buttons",
+		"size" => "md",
         "text" => "このアカウントは自動応答のみでのご対応になります。\nはじめにご利用店舗とご利用状況をご選択ください。\n①サニープライズ\n②ハッピーサニーショップ",
         "actions" => [
             [
