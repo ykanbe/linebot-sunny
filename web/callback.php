@@ -144,7 +144,30 @@ if($type == "image"){
   $email->setSubject('['.$massagecat.']'.$messageId)
 		->setHtml('tags: '.$userId.'<br>'.$massage2.$massage0.$massageend);
   $sendgrid->send($email);
-} else if ((strpos($text,'の返品・交換・キャンセルをしたい') !== false)||(strpos($text,'のお支払いについて') !== false)||(strpos($text,'のお届け先変更方法が知りたい') !== false)||(strpos($text,'の領収書が欲しい') !== false)||(strpos($text,'の納期・配送状況についておしえて') !== false)) {
+} else if ((strpos($text,'のお支払いについて') !== false)||(strpos($text,'のお届け先変更方法が知りたい') !== false)||(strpos($text,'の領収書が欲しい') !== false)||(strpos($text,'の納期・配送状況についておしえて') !== false)) {
+  $response_format_text = [
+    "type" => "template",
+	"altText" => "購入履歴",
+    "template" => [
+      "type" => "buttons",
+	  "thumbnailImageUrl" => "https://" . $_SERVER['SERVER_NAME'] . "/img/rakuten01.png",
+	  "imageAspectRatio" => "square",
+	  "title" => "ショップ情報",
+      "text" => "お届け先の変更、領収書の発行につきましてはこちらからご連絡ください。",
+      "actions" => [
+          [
+            "type" => "uri",
+            "label" => "購入履歴を表示",
+            "uri" => "https://sp.order.my.rakuten.co.jp/?fidomy=1"
+          ]
+      ]
+    ]
+  ];
+  $massage0 = $text;
+  $email->setSubject('['.$massagecat.']'.$messageId)
+		->setHtml('tags: '.$userId.'<br>'.$massage2.$massage0.$massageend);
+  $sendgrid->send($email);
+} else if (strpos($text,'の返品・交換・キャンセルをしたい') !== false) {
   $massageurl = 'sunnyprize';
   if($massagecat == '316906'){
 	  $massageurl = 'happysunny';
