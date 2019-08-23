@@ -278,8 +278,8 @@ if($type == "image"){
       ]
     ]
   ];
-  if ((strpos($text,'納期') !== false)||(strpos($text,'納期') !== false)||(strpos($text,'返品') !== false)){
-  //メール送信（納期、変更、返品）
+  if ((strpos($text,'納期') !== false)||(strpos($text,'変更') !== false)||(strpos($text,'返品') !== false)||(strpos($text,'名前') !== false)){
+  //メール送信（納期、変更、返品、名前）
   $massage0 = $text;
   $email->setSubject($messageId)
 		->setHtml('tags: '.$userId.'<br>'.$massage2.$massage0.$massageend);
